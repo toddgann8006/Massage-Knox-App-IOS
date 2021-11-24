@@ -7,6 +7,8 @@ import { createAppContainer } from 'react-navigation';
 import Home from "./HomeComponent";
 import About from "./AboutComponent";
 import Services from "./ServicesComponent";
+import Appointments from "./AppointmentsComponent";
+import Giftcards from "./GiftcardsComponent";
 
 const HomeNavigator = createStackNavigator(
     {
@@ -54,9 +56,45 @@ const ServicesNavigator = createStackNavigator(
             headerStyle: {
                 backgroundColor: '#000000'
             },
-            headerTintColor: 'yellow',
+            headerTintColor: '#fff',
             headerTitleStyle: {
-                color: 'yellow'
+                color: '#fff'
+            }
+        }
+    }
+);
+
+const AppointmentsNavigator = createStackNavigator(
+    {
+        Appointments: { screen: Appointments }
+    },
+    {
+        initialRouteName: 'Appointments',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: '#000000'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            }
+        }
+    }
+);
+
+const GiftcardsNavigator = createStackNavigator(
+    {
+        Giftcards: { screen: Giftcards }
+    },
+    {
+        initialRouteName: 'Giftcards',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: '#000000'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
             }
         }
     }
@@ -66,7 +104,9 @@ const MainNavigator = createDrawerNavigator(
     {
         Home: { screen: HomeNavigator },
         About: { screen: AboutNavigator },
-        Services: { screen: ServicesNavigator }
+        Services: { screen: ServicesNavigator },
+        Appointments: { screen: AppointmentsNavigator },
+        Giftcards: { screen: GiftcardsNavigator }
     },
     {
         drawerBackgroundColor: 'yellow'
