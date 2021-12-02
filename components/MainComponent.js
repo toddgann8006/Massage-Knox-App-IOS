@@ -9,6 +9,8 @@ import About from "./AboutComponent";
 import Services from "./ServicesComponent";
 import Appointments from "./AppointmentsComponent";
 import Giftcards from "./GiftcardsComponent";
+import Rewards from "./RewardsComponent";
+import Scanner from "./ScannerComponent";
 
 const HomeNavigator = createStackNavigator(
     {
@@ -100,13 +102,33 @@ const GiftcardsNavigator = createStackNavigator(
     }
 );
 
+const RewardsNavigator = createStackNavigator(
+    {
+        Rewards: { screen: Rewards },
+        Scanner: { screen: Scanner }
+    },
+    {
+        initialRouteName: 'Rewards',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: '#000000'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            }
+        }
+    }
+);
+
 const MainNavigator = createDrawerNavigator(
     {
         Home: { screen: HomeNavigator },
         About: { screen: AboutNavigator },
         Services: { screen: ServicesNavigator },
         Appointments: { screen: AppointmentsNavigator },
-        Giftcards: { screen: GiftcardsNavigator }
+        Giftcards: { screen: GiftcardsNavigator },
+        Rewards: { screen: RewardsNavigator }
     },
     {
         drawerBackgroundColor: 'yellow'
