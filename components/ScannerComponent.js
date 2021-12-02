@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, SafeAreaView, Alert } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { postReward } from '../redux/ActionCreators';
+
+const mapStateToProps = state => {
+    return {
+        reward: state.reward
+    };
+}
+
+const mapDispatchToProps = {
+    postReward: (reward) => (postReward(reward))
+};
 
 class Scanner extends Component {
     state = {
@@ -18,6 +29,29 @@ class Scanner extends Component {
         this.setState({ hasCameraPermission: status === 'granted' });
     }
 
+    handleReward() {
+        const reward = this.state
+        this.props.postReward(reward);
+    }
+
+    handleBarCodeScanned = ({ type, data }) => {
+        const hui = 'hui'
+        this.setState({ scanned: true });
+        if (data === hui) {
+            Alert.alert(
+                'Congratulations',
+                'You earned another stamp!',
+                [
+                    {
+                        text: 'OK',
+                        onPress: () => console.log("OK Pressed")
+                    },
+                ],
+                { cancelable: false }
+            )
+        }
+    };
+
     render() {
         const { hasCameraPermission, scanned } = this.state;
 
@@ -28,31 +62,46 @@ class Scanner extends Component {
             return <Text>No access to camera</Text>;
         }
         return (
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: 'column',
-                    justifyContent: 'flex-end',
-                }}>
-                <BarCodeScanner
-                    onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
-                    style={StyleSheet.absoluteFillObject}
-                />
+            <SafeAreaView style={styles.container}>
+                <Text style={styles.text}>
+                    Scan Now
+                </Text>
+                <View style={styles.mainView}>
 
-                {scanned && (
-                    <Button
-                        title={'Tap to Scan Again'}
-                        onPress={() => this.setState({ scanned: false })}
+                    <BarCodeScanner
+                        onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
+                        style={StyleSheet.absoluteFillObject}
                     />
-                )}
-            </View>
+
+                    {scanned && (
+                        <Button
+                            title={'Tap to Scan Again'}
+                            onPress={() => this.setState({ scanned: false })}
+                        />
+                    )}
+                </View>
+            </SafeAreaView>
         );
     }
 
-    handleBarCodeScanned = ({ type, data }) => {
-        this.setState({ scanned: true });
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    };
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'black'
+    },
+    mainView: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-end'
+    },
+    text: {
+        color: 'yellow',
+        backgroundColor: 'black',
+        textAlign: 'center',
+        fontSize: 50
+    }
+})
 
 export default Scanner;

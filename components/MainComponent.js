@@ -11,6 +11,7 @@ import Appointments from "./AppointmentsComponent";
 import Giftcards from "./GiftcardsComponent";
 import Rewards from "./RewardsComponent";
 import Scanner from "./ScannerComponent";
+import { connect } from 'react-redux';
 
 const HomeNavigator = createStackNavigator(
     {
@@ -137,6 +138,8 @@ const MainNavigator = createDrawerNavigator(
 
 const AppNavigator = createAppContainer(MainNavigator);
 
+
+
 class Main extends Component {
     render() {
         return (
@@ -151,4 +154,4 @@ class Main extends Component {
     }
 }
 
-export default Main;
+export default connect()(Main);
