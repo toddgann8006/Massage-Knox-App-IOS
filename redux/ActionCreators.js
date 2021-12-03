@@ -5,7 +5,10 @@ export const addReward = reward => ({
     payload: reward
 });
 
-export const rewardFailed = errMess => ({
-    type: ActionTypes.REWARD_FAILED,
-    payload: errMess
-});
+export const postReward = reward => dispatch => {
+    const newReward = reward
+
+    setTimeout(() => {
+        dispatch(addReward(newReward));
+    }, 2000);
+}

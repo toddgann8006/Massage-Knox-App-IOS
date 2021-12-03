@@ -10,6 +10,12 @@ const mapStateToProps = state => {
 };
 
 class Rewards extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+    }
 
     render() {
         const { navigate } = this.props.navigation;

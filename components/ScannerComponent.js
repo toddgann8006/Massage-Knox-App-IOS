@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Button, SafeAreaView, Alert } from 'react-native';
+import { connect } from 'react-redux';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { postReward } from '../redux/ActionCreators';
@@ -18,6 +19,7 @@ class Scanner extends Component {
     state = {
         hasCameraPermission: false,
         scanned: false,
+        reward: 'heart'
     };
 
     async componentDidMount() {
@@ -40,7 +42,7 @@ class Scanner extends Component {
         if (data === hui) {
             Alert.alert(
                 'Congratulations',
-                'You earned another stamp!',
+                'You earned another r!',
                 [
                     {
                         text: 'OK',
@@ -48,7 +50,8 @@ class Scanner extends Component {
                     },
                 ],
                 { cancelable: false }
-            )
+            );
+            this.handleReward();
         }
     };
 
@@ -104,4 +107,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Scanner;
+export default connect(mapStateToProps, mapDispatchToProps)(Scanner);
