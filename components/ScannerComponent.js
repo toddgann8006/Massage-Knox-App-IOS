@@ -4,23 +4,31 @@ import { connect } from 'react-redux';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { postReward } from '../redux/ActionCreators';
+import { postReset } from '../redux/ActionCreators';
+import { postNewuser } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
-        reward: state.reward
+        reward: state.reward,
+        newuser: state.newuser
     };
 }
 
 const mapDispatchToProps = {
-    postReward: (reward) => (postReward(reward))
+    postReward: (reward) => (postReward(reward)),
+    postReset: (reset) => (postReset(reset)),
+    postNewuser: (newuser) => (postNewuser(newuser))
 };
 
 class Scanner extends Component {
     state = {
         hasCameraPermission: false,
         scanned: false,
-        reward: 'heart'
+        reward: 'heart',
+        newuser: 'heart',
+        reset: []
     };
+
 
     async componentDidMount() {
         this.getPermissionsAsync();
@@ -31,29 +39,69 @@ class Scanner extends Component {
         this.setState({ hasCameraPermission: status === 'granted' });
     }
 
-    handleReward() {
-        const reward = this.state
-        this.props.postReward(reward);
+    resetRewards() {
+        const reset = this.state
+        this.props.postReset(reset)
+        Alert.alert(
+            'Congratulations',
+            'You get a discount on your massage today!',
+            [
+                {
+                    text: 'OK',
+                    onPress: () => this.props.navigation.goBack()
+                },
+            ],
+            { cancelable: false }
+        );
     }
 
-    handleBarCodeScanned = ({ type, data }) => {
+    handleNewuser() {
+        const newuser = this.state
+        this.props.postNewuser(newuser)
+        Alert.alert(
+            'Thanks for downloading the app!',
+            'Come back again for more discounts!',
+            [
+                {
+                    text: 'OK',
+                    onPress: () => this.props.navigation.goBack()
+                },
+            ],
+            { cancelable: false }
+        );
+    }
+
+    handleReward() {
+        const reward = this.state
+        this.props.postReward(reward)
+        Alert.alert(
+            'Congratulations',
+            'You earned another reward!',
+            [
+                {
+                    text: 'OK',
+                    onPress: () => this.props.navigation.goBack()
+                },
+            ],
+            { cancelable: false }
+        );
+    }
+
+    handleBarCodeScanned = ({ data }) => {
         const hui = 'hui'
+        const rewards = this.props.reward.rewards
+        const newuser = this.props.newuser.newuser
         this.setState({ scanned: true });
-        if (data === hui) {
-            Alert.alert(
-                'Congratulations',
-                'You earned another r!',
-                [
-                    {
-                        text: 'OK',
-                        onPress: () => console.log("OK Pressed")
-                    },
-                ],
-                { cancelable: false }
-            );
-            this.handleReward();
+        if (data === hui && newuser.length < 1) {
+            return this.handleNewuser()
+        } else if (data === hui && rewards.length < 7) {
+            return this.handleReward()
+        } else if (data === hui && rewards.length >= 7) {
+            return this.resetRewards()
+        } else {
+            console.log('ok')
         }
-    };
+    }
 
     render() {
         const { hasCameraPermission, scanned } = this.state;

@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
+import Swiper from 'react-native-swiper'
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
     return {
-        reward: state.reward
+        reward: state.reward,
+        newuser: state.newuser
     };
 };
 
 class Rewards extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
     }
 
     render() {
         const { navigate } = this.props.navigation;
+        const newuser = this.props.newuser.newuser.map(newuser => {
+            return (
+
+                <Icon
+                    name='heart'
+                    type='font-awesome'
+                    color='#5637DD'
+                    raised
+                    reverse
+                    key={this.props.newuser.newuser.indexOf(newuser)}
+                />
+
+            )
+        })
         const reward = this.props.reward.rewards.map(reward => {
             return (
 
@@ -28,31 +41,52 @@ class Rewards extends Component {
                     color='#5637DD'
                     raised
                     reverse
-                    key={this.props.reward.rewards[reward]}
+                    key={this.props.reward.rewards.indexOf(reward)}
                 />
 
             )
         })
         return (
-            <View style={styles.container}>
-                <Image
-                    source={require('./images/logo.png')}
-                    resizeMode='contain'
-                    style={styles.image} />
-                <Text style={styles.text}>
-                    Your Rewards
-                </Text>
-                <View style={styles.icon}>
-                    {reward}
+            <Swiper>
+                <View style={styles.container}>
+                    <Image
+                        source={require('./images/logo.png')}
+                        resizeMode='contain'
+                        style={styles.image} />
+                    <Text style={styles.text}>
+                        Thanks for downloading the app. Enjoy 20% off of your visit today.
+                    </Text>
+                    <View style={styles.icon}>
+                        {newuser}
+                    </View>
+                    <View style={styles.bottomView}>
+                        <TouchableOpacity
+                            onPress={() => navigate('Scanner')}
+                        >
+                            <Text>Stamp Card</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={styles.bottomView}>
-                    <TouchableOpacity
-                        onPress={() => navigate('Scanner')}
-                    >
-                        <Text>Stamp Card</Text>
-                    </TouchableOpacity>
+                <View style={styles.container}>
+                    <Image
+                        source={require('./images/logo.png')}
+                        resizeMode='contain'
+                        style={styles.image} />
+                    <Text style={styles.text}>
+                        Your Rewards
+                    </Text>
+                    <View style={styles.icon}>
+                        {reward}
+                    </View>
+                    <View style={styles.bottomView}>
+                        <TouchableOpacity
+                            onPress={() => navigate('Scanner')}
+                        >
+                            <Text>Stamp Card</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
+            </Swiper>
         )
     }
 }
@@ -90,7 +124,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        bottom: 0,
+        bottom: 50,
         fontSize: 40
     },
     text: {
