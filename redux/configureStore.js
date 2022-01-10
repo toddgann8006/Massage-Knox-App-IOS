@@ -1,14 +1,14 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import { reward } from './reward';
-import { newuser } from './newuser';
+import { user } from './user';
+import { email } from './email';
 
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
-            reward,
-            newuser
+            user,
+            email
         }),
         applyMiddleware(thunk, logger)
     );

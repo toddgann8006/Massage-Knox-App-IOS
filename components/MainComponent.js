@@ -11,7 +11,12 @@ import Appointments from "./AppointmentsComponent";
 import Giftcards from "./GiftcardsComponent";
 import Rewards from "./RewardsComponent";
 import Scanner from "./ScannerComponent";
+import { fetchUser } from '../redux/ActionCreators';
 import { connect } from 'react-redux';
+
+const mapDispatchToProps = {
+    fetchUser
+}
 
 const HomeNavigator = createStackNavigator(
     {
@@ -141,6 +146,11 @@ const AppNavigator = createAppContainer(MainNavigator);
 
 
 class Main extends Component {
+
+    componentDidMount() {
+        this.props.fetchUser();
+    }
+
     render() {
         return (
             <View
@@ -154,4 +164,4 @@ class Main extends Component {
     }
 }
 
-export default connect()(Main);
+export default connect(null, mapDispatchToProps)(Main);

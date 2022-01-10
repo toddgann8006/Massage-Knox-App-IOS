@@ -1,16 +1,46 @@
 import React, { Component } from "react";
-import { ScrollView, View, Image, StyleSheet, Linking, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-elements'
+import { ScrollView, View, Image, StyleSheet, Linking, TouchableOpacity, Modal, TextInput, Button, Alert } from 'react-native';
+import { Text } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { postEmail } from '../redux/ActionCreators';
+
+const mapStatetoProps = state => {
+    return {
+        email: state.email
+    };
+};
+
+const mapDispatchToProps = {
+    postEmail: (email) => (postEmail(email))
+};
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showModal: true,
+            email: ""
+        }
+    }
 
-    static navigationOptions = {
-        title: 'Home'
+    toggleModal() {
+        this.setState({ showModal: false });
+    }
+
+    resetEmail() {
+        this.setState({ showModal: true })
+    }
+
+    handleEmail() {
+        const { email } = this.state
+        this.props.postEmail(email);
     }
 
     render() {
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container}
+                keyboardShouldPersistTaps='handled'
+            >
                 <Image
                     source={require('./images/logo.png')}
                     resizeMode='contain'
@@ -78,6 +108,48 @@ class Home extends Component {
                 <Text style={styles.hours}>
                     Saturday: 10-6
                 </Text>
+                <Modal
+                    animationType={'slide'}
+                    transparent={false}
+                    visible={this.state.showModal}
+                    onRequestClose={() => this.toggleModal()}
+                >
+                    <View style={styles.modal}>
+                        <Text>Thanks for downloading the app. Please enter your email to start receiving rewards.</Text>
+                        <TextInput
+                            style={{ height: 80, fontSize: 20, borderWidth: 1, borderStyle: 'solid' }}
+                            value={this.state.email}
+                            onChangeText={(email) =>
+                                this.setState({ email: email })
+                            }
+                            ref={input => { this.textInput = input }}
+                            returnKeyType="go"
+                        />
+                        <Button
+                            onPress={() => {
+                                this.handleEmail()
+                                console.log(this.state.showModal)
+                                Alert.alert(
+                                    `Is ${this.state.email} the correct email?`,
+                                    "Click Ok to continue or Cancel to enter a different email.",
+                                    [
+                                        {
+                                            text: 'OK',
+                                            onPress: () => this.toggleModal()
+                                        },
+                                        {
+                                            text: 'Cancel',
+                                            onPress: () => this.resetEmail()
+                                        }
+                                    ],
+                                    { cancelable: false }
+                                );
+                            }}
+                            color='#5637DD'
+                            title='Register'
+                        />
+                    </View>
+                </Modal>
             </ScrollView>
         )
     }
@@ -130,7 +202,11 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 12,
         marginVertical: 30
+    },
+    modal: {
+        justifyContent: 'center',
+        margin: 20
     }
 })
 
-export default Home;
+export default connect(mapStatetoProps, mapDispatchToProps)(Home);

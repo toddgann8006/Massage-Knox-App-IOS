@@ -3,10 +3,6 @@ import { ScrollView, StyleSheet, Text, View, Linking, TouchableOpacity } from 'r
 
 class Appointments extends Component {
 
-    static navigationOptions = {
-        title: 'Appointments'
-    }
-
     render() {
         return (
             <ScrollView style={styles.container}>

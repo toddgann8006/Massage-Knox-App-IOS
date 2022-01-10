@@ -6,8 +6,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
     return {
-        reward: state.reward,
-        newuser: state.newuser
+        user: state.user
     };
 };
 
@@ -18,7 +17,7 @@ class Rewards extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
-        const newuser = this.props.newuser.newuser.map(newuser => {
+        const newuser = this.props.user.user.newuser.map(newuser => {
             return (
 
                 <Icon
@@ -27,12 +26,12 @@ class Rewards extends Component {
                     color='#5637DD'
                     raised
                     reverse
-                    key={this.props.newuser.newuser.indexOf(newuser)}
+                    key={this.props.user.user.newuser.indexOf(newuser)}
                 />
 
             )
         })
-        const reward = this.props.reward.rewards.map(reward => {
+        const reward = this.props.user.user.rewards.map(reward => {
             return (
 
                 <Icon
@@ -41,7 +40,7 @@ class Rewards extends Component {
                     color='#5637DD'
                     raised
                     reverse
-                    key={this.props.reward.rewards.indexOf(reward)}
+                    key={this.props.user.user.rewards.indexOf(reward)}
                 />
 
             )

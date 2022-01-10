@@ -3,10 +3,6 @@ import { ScrollView, StyleSheet, Text } from 'react-native';
 
 class Services extends Component {
 
-    static navigationOptions = {
-        title: 'Services'
-    }
-
     render() {
         return (
             <ScrollView style={styles.container}>

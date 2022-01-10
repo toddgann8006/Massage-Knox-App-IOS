@@ -3,10 +3,6 @@ import { ScrollView, StyleSheet, Text } from 'react-native';
 
 class About extends Component {
 
-    static navigationOptions = {
-        title: 'About'
-    }
-
     render() {
         return (
             <ScrollView style={styles.container}>

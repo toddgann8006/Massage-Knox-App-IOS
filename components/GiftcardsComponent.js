@@ -3,10 +3,6 @@ import { ScrollView, StyleSheet, Text, View, Linking, TouchableOpacity } from 'r
 
 class Giftcards extends Component {
 
-    static navigationOptions = {
-        title: 'Giftcards'
-    }
-
     render() {
         return (
             <ScrollView style={styles.container}>
