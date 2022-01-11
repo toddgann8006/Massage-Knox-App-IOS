@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ScrollView, View, Image, StyleSheet, Linking, TouchableOpacity, Modal, TextInput, Button, Alert } from 'react-native';
 import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { postEmail } from '../redux/ActionCreators';
+import { postEmail, resetEmail, fetchUser, postUser } from '../redux/ActionCreators';
 
 const mapStatetoProps = state => {
     return {
@@ -11,7 +11,10 @@ const mapStatetoProps = state => {
 };
 
 const mapDispatchToProps = {
-    postEmail: (email) => (postEmail(email))
+    postEmail: (email) => (postEmail(email)),
+    resetEmail: (email) => (resetEmail(email)),
+    postUser: (email) => (postUser(email)),
+    fetchUser: () => (fetchUser())
 };
 
 class Home extends Component {
@@ -23,17 +26,32 @@ class Home extends Component {
         }
     }
 
-    toggleModal() {
-        this.setState({ showModal: false });
+    componentDidMount() {
+        this.props.fetchUser();
     }
 
-    resetEmail() {
-        this.setState({ showModal: true })
+    componentDidUpdate(prevProps) {
+        if (this.props.email !== prevProps.email) {
+            this.props.fetchUser();
+        }
+    }
+
+    handleNewuser() {
+        const email = this.state.email
+        this.props.postUser(email)
+        this.setState({ showModal: false });
     }
 
     handleEmail() {
         const { email } = this.state
         this.props.postEmail(email);
+    }
+
+    resEmail() {
+        const email = ""
+        this.setState({ showModal: true, email: "" })
+        this.props.resetEmail(email);
+        console.log(this.props.email)
     }
 
     render() {
@@ -117,7 +135,7 @@ class Home extends Component {
                     <View style={styles.modal}>
                         <Text>Thanks for downloading the app. Please enter your email to start receiving rewards.</Text>
                         <TextInput
-                            style={{ height: 80, fontSize: 20, borderWidth: 1, borderStyle: 'solid' }}
+                            style={styles.modalTextinput}
                             value={this.state.email}
                             onChangeText={(email) =>
                                 this.setState({ email: email })
@@ -128,18 +146,17 @@ class Home extends Component {
                         <Button
                             onPress={() => {
                                 this.handleEmail()
-                                console.log(this.state.showModal)
                                 Alert.alert(
                                     `Is ${this.state.email} the correct email?`,
                                     "Click Ok to continue or Cancel to enter a different email.",
                                     [
                                         {
                                             text: 'OK',
-                                            onPress: () => this.toggleModal()
+                                            onPress: () => this.handleNewuser()
                                         },
                                         {
                                             text: 'Cancel',
-                                            onPress: () => this.resetEmail()
+                                            onPress: () => this.resEmail()
                                         }
                                     ],
                                     { cancelable: false }
@@ -205,7 +222,17 @@ const styles = StyleSheet.create({
     },
     modal: {
         justifyContent: 'center',
-        margin: 20
+        marginTop: 200,
+        width: 300,
+        marginLeft: 50
+    },
+    modalTextinput: {
+        height: 80,
+        fontSize: 20,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        marginTop: 20,
+        marginBottom: 50
     }
 })
 

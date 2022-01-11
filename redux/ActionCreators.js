@@ -12,6 +12,12 @@ export const postEmail = (email) => dispatch => {
     }, 2000);
 }
 
+export const resetEmail = (email) => dispatch => {
+    setTimeout(() => {
+        dispatch(addEmail(email));
+    }, 2000);
+}
+
 export const emailFailed = errMess => ({
     type: ActionTypes.EMAIL_FAILED,
     payload: errMess
@@ -55,5 +61,36 @@ export const addUser = user => ({
     type: ActionTypes.ADD_USER,
     payload: user
 });
+
+export const postUser = email => dispatch => {
+
+    const newEmail = {
+        email: email
+    }
+
+    return fetch(baseUrl + 'user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newEmail)
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => { throw error; }
+        )
+        .then(response => response.json())
+        .then(email => {
+            dispatch(addEmail(email));
+        })
+        .catch(error => dispatch(emailFailed(error.message)));
+}
 
 
