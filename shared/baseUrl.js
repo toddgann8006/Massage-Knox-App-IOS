@@ -1,1 +1,1 @@
-export const baseUrl = 'http://10.0.0.202:3000/';
+export const baseUrl = 'https://fast-chamber-34259.herokuapp.com/';
