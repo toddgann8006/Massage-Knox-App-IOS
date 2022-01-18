@@ -1,14 +1,46 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
-import Swiper from 'react-native-swiper'
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        newuser: state.newuser,
+        rewards: state.rewards
     };
 };
+
+function RenderText(props) {
+    const { newuser } = props
+    if (newuser.length < 1) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.text}>
+                    Thanks for downloading the app. Enjoy 20% off of your visit today.
+                </Text>
+            </View>
+        )
+    } else {
+        return (
+            <Text style={styles.text}>
+                Get 6 one hour or longer massages at regular price and receive 10% off the 7th. Not to be used in combination with a gift card or another discount.
+            </Text>
+        )
+    }
+}
+
+function RenderButtonText(props) {
+    const { newuser, rewards } = props
+    if (newuser.length < 1 || rewards.length >= 6) {
+        return (
+            <Text>Redeem Reward</Text>
+        )
+    } else {
+        return (
+            <Text>Stamp Card</Text>
+        )
+    }
+}
 
 class Rewards extends Component {
     constructor(props) {
@@ -17,75 +49,45 @@ class Rewards extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
-        const newuser = this.props.user.user.newuser.map(newuser => {
+        const reward = this.props.rewards.rewards.map((reward, i) => {
             return (
 
                 <Icon
-                    name='heart'
+                    name={reward}
                     type='font-awesome'
                     color='#5637DD'
                     raised
                     reverse
-                    key={this.props.user.user.newuser.indexOf(newuser)}
+                    key={i}
+                    size={17}
                 />
 
             )
         })
-        const reward = this.props.user.user.rewards.map(reward => {
-            return (
 
-                <Icon
-                    name='heart'
-                    type='font-awesome'
-                    color='#5637DD'
-                    raised
-                    reverse
-                    key={this.props.user.user.rewards.indexOf(reward)}
-                />
-
-            )
-        })
         return (
-            <Swiper>
-                <View style={styles.container}>
-                    <Image
-                        source={require('./images/logo.png')}
-                        resizeMode='contain'
-                        style={styles.image} />
-                    <Text style={styles.text}>
-                        Thanks for downloading the app. Enjoy 20% off of your visit today.
-                    </Text>
-                    <View style={styles.icon}>
-                        {newuser}
-                    </View>
-                    <View style={styles.bottomView}>
-                        <TouchableOpacity
-                            onPress={() => navigate('Scanner')}
-                        >
-                            <Text>Stamp Card</Text>
-                        </TouchableOpacity>
-                    </View>
+            <View style={styles.container}>
+                <Image
+                    source={require('./images/logo.png')}
+                    resizeMode='contain'
+                    style={styles.image} />
+                <RenderText
+                    newuser={this.props.newuser.newuser}
+                />
+                <View style={styles.icon}>
+                    {reward}
                 </View>
-                <View style={styles.container}>
-                    <Image
-                        source={require('./images/logo.png')}
-                        resizeMode='contain'
-                        style={styles.image} />
-                    <Text style={styles.text}>
-                        Your Rewards
-                    </Text>
-                    <View style={styles.icon}>
-                        {reward}
-                    </View>
-                    <View style={styles.bottomView}>
-                        <TouchableOpacity
-                            onPress={() => navigate('Scanner')}
-                        >
-                            <Text>Stamp Card</Text>
-                        </TouchableOpacity>
-                    </View>
+                <View style={styles.bottomView}>
+                    <TouchableOpacity
+                        onPress={() => navigate('Scanner')}
+                    >
+                        <RenderButtonText
+                            newuser={this.props.newuser.newuser}
+                            rewards={this.props.rewards.rewards}
+                        />
+                    </TouchableOpacity>
                 </View>
-            </Swiper>
+            </View>
         )
     }
 }
@@ -105,7 +107,8 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: undefined,
-        aspectRatio: 1
+        aspectRatio: 1.5,
+        marginBottom: 30
     },
     button: {
         backgroundColor: 'yellow',
@@ -123,7 +126,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        bottom: 50,
+        bottom: 5,
         fontSize: 40
     },
     text: {

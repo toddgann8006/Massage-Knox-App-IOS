@@ -23,8 +23,8 @@ export const emailFailed = errMess => ({
     payload: errMess
 });
 
-export const fetchUser = () => (dispatch, getState) => {
-    dispatch(userLoading());
+export const fetchNewuser = () => (dispatch, getState) => {
+    dispatch(newuserLoading());
 
     const { email } = getState().email;
 
@@ -44,21 +44,60 @@ export const fetchUser = () => (dispatch, getState) => {
             }
         )
         .then(response => response.json())
-        .then(user => dispatch(addUser(user)))
-        .catch(error => dispatch(userFailed(error.message)));
+        .then(user => dispatch(addNewuser(user.newuser)))
+        .catch(error => dispatch(newuserFailed(error.message)));
 };
 
-export const userLoading = () => ({
-    type: ActionTypes.USER_LOADING
+export const fetchRewards = () => (dispatch, getState) => {
+    dispatch(rewardsLoading());
+
+    const { email } = getState().email;
+
+    return fetch(baseUrl + 'user/' + email)
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                const errMess = new Error(error.message);
+                throw errMess;
+            }
+        )
+        .then(response => response.json())
+        .then(reward => dispatch(addRewards(reward.rewards)))
+        .catch(error => dispatch(rewardsFailed(error.message)));
+};
+
+export const newuserLoading = () => ({
+    type: ActionTypes.NEWUSER_LOADING
 });
 
-export const userFailed = errMess => ({
-    type: ActionTypes.USER_FAILED,
+export const newuserFailed = errMess => ({
+    type: ActionTypes.NEWUSER_FAILED,
     payload: errMess
 });
 
-export const addUser = user => ({
-    type: ActionTypes.ADD_USER,
+export const rewardsLoading = () => ({
+    type: ActionTypes.REWARDS_LOADING
+});
+
+export const rewardsFailed = errMess => ({
+    type: ActionTypes.REWARDS_FAILED,
+    payload: errMess
+});
+
+export const addRewards = reward => ({
+    type: ActionTypes.ADD_REWARDS,
+    payload: reward
+});
+
+export const addNewuser = user => ({
+    type: ActionTypes.ADD_NEWUSER,
     payload: user
 });
 
@@ -91,6 +130,91 @@ export const postUser = email => dispatch => {
             dispatch(addEmail(email));
         })
         .catch(error => dispatch(emailFailed(error.message)));
+}
+
+export const addReward = reward => ({
+    type: ActionTypes.ADD_REWARD,
+    payload: reward
+})
+
+export const postReward = reward => (dispatch, getState) => {
+    const newReward = reward
+
+    const { email } = getState().email;
+
+    return fetch(baseUrl + 'user/' + email, {
+        method: 'PUT'
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => { throw error; }
+        )
+        .then(response => response.json())
+        .then(dispatch(addReward(newReward)))
+        .catch(error => dispatch(userFailed(error.message)))
+}
+
+export const addNewuserReward = newuser => ({
+    type: ActionTypes.ADD_NEWUSER_REWARD,
+    payload: newuser
+})
+
+export const postNewuser = newuser => (dispatch, getState) => {
+    const newUserReward = newuser
+
+    const { email } = getState().email;
+
+    return fetch(baseUrl + 'user/' + email, {
+        method: 'PUT'
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => { throw error; }
+        )
+        .then(response => response.json())
+        .then(dispatch(addNewuserReward(newUserReward)))
+        .catch(error => dispatch(rewardsFailed(error.message)))
+}
+
+export const resetReward = reset => ({
+    type: ActionTypes.RESET_REWARD,
+    payload: reset
+});
+
+export const postReset = reset => (dispatch, getState) => {
+    const { email } = getState().email;
+
+    return fetch(baseUrl + 'user/' + email, {
+        method: 'DELETE'
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => { throw error; }
+        )
+        .then(response => response.json())
+        .then(dispatch(resetReward()))
+        .catch(error => dispatch(rewardsFailed(error.message)))
 }
 
 

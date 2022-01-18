@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     body: {
         color: 'white',
         marginTop: 20,
+        marginBottom: 100,
         fontSize: 18,
         lineHeight: 30
     }

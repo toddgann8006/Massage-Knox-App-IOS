@@ -7,7 +7,7 @@ class Giftcards extends Component {
         return (
             <ScrollView style={styles.container}>
                 <Text style={styles.header}>
-                    Gift Cards and Promotions-
+                    Gift Cards
                 </Text>
                 <Text style={styles.body}>
                     Click the button below to purchase  e-Gift Cards. You will be given the option to email your voucher to yourself or someone else as a gift.  And you can even choose the date it is sent to your loved one so as not to ruin the surprise! Or print it and gift it in person! If you are sending it to yourself or want to print it to give in person, click the box that says "I want to send this to myself."  Your receipt and the gift card will be sent in separate emails so make sure to look for both as the actual gift card contains the redemption code.
@@ -41,7 +41,7 @@ class Giftcards extends Component {
                         <Text>Purchase Gift Cards</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ marginTop: 30, alignItems: 'center' }}>
+                <View style={{ marginTop: 30, alignItems: 'center', marginBottom: 100 }}>
                     <Text style={styles.body}>
                         If you have questions about purchasing the gift cards or need help, please feel free to email!
                     </Text>

@@ -13,7 +13,7 @@ class Appointments extends Component {
                     If this is your first visit in over a year, you will need to fill out a new massage customization form so plan to arrive a few minutes early. If the client is under 18, a parent/guardian will need to be present to sign the consent at the bottom of the form. If the client is under 16, a parent/guardian will need to stay with  their child  during their appointment.
                 </Text>
                 <Text style={styles.yellowtext}>
-                    ***Please be advised, I cannot accept Nourish Skin Studio's online gift cards, birthday or in-app rewards. If you have an e-gift card, reward or other discount, please confirm that it is from Massage Knox. If you need a Massage Knox punch card, ask for one at your next appointment! And check this website and facebook for any current promotions.***
+                    ***Please be advised, I cannot accept Nourish Skin Studio's online gift cards, birthday or in-app rewards. If you have an e-gift card, reward or other discount, please confirm that it is from Massage Knox. And check the website and facebook for any current promotions.***
                 </Text>
                 <View style={{ marginTop: 40 }}>
                     <Text style={styles.centertext}>
@@ -39,7 +39,7 @@ class Appointments extends Component {
                         me to schedule!
                     </Text>
                 </View>
-                <View style={{ alignItems: 'center' }}>
+                <View style={{ alignItems: 'center', marginBottom: 100 }}>
                     <TouchableOpacity
                         onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
                         style={styles.button}

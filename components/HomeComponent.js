@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { ScrollView, View, Image, StyleSheet, Linking, TouchableOpacity, Modal, TextInput, Button, Alert } from 'react-native';
+import { ScrollView, View, Image, StyleSheet, Linking, TouchableOpacity, Modal, TextInput, Button, Alert, SafeAreaView } from 'react-native';
 import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { postEmail, resetEmail, fetchUser, postUser } from '../redux/ActionCreators';
+import { postEmail, resetEmail, fetchNewuser, postUser, fetchRewards } from '../redux/ActionCreators';
 
 const mapStatetoProps = state => {
     return {
-        email: state.email
+        email: state.email,
+        newuser: state.newuser
     };
 };
 
@@ -14,7 +15,8 @@ const mapDispatchToProps = {
     postEmail: (email) => (postEmail(email)),
     resetEmail: (email) => (resetEmail(email)),
     postUser: (email) => (postUser(email)),
-    fetchUser: () => (fetchUser())
+    fetchNewuser: () => (fetchNewuser()),
+    fetchRewards: () => (fetchRewards())
 };
 
 class Home extends Component {
@@ -27,24 +29,27 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchUser();
+        this.props.fetchNewuser();
+        this.props.fetchRewards();
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.email !== prevProps.email) {
-            this.props.fetchUser();
+            this.props.fetchNewuser();
+            this.props.fetchRewards();
         }
     }
 
     handleNewuser() {
-        const email = this.state.email
+        const email = this.state.email.toLowerCase()
         this.props.postUser(email)
         this.setState({ showModal: false });
+        console.log(this.props.newuser);
     }
 
     handleEmail() {
         const { email } = this.state
-        this.props.postEmail(email);
+        this.props.postEmail(email.toLowerCase());
     }
 
     resEmail() {
@@ -107,32 +112,33 @@ class Home extends Component {
                         <Text>Find Me On Facebook</Text>
                     </TouchableOpacity>
                 </View>
-                <Text
-                    style={{ fontSize: 20, color: 'yellow', marginTop: 25 }}>
-                    Hours of availability:
-                </Text>
-                <Text style={styles.hours}>
-                    Tuesday: 10-2
-                </Text>
-                <Text style={styles.hours}>
-                    Wednesday: 10-5
-                </Text>
-                <Text style={styles.hours}>
-                    Thursday: 10-6
-                </Text>
-                <Text style={styles.hours}>
-                    Friday: 10-6
-                </Text>
-                <Text style={styles.hours}>
-                    Saturday: 10-6
-                </Text>
+                <View style={{ marginBottom: 100 }}>
+                    <Text
+                        style={{ fontSize: 20, color: 'yellow', marginTop: 25, marginLeft: 30 }}>
+                        Hours of availability:
+                    </Text>
+                    <Text style={styles.hours}>
+                        Tuesday: 10-2
+                    </Text>
+                    <Text style={styles.hours}>
+                        Wednesday: 10-5
+                    </Text>
+                    <Text style={styles.hours}>
+                        Thursday: 10-6
+                    </Text>
+                    <Text style={styles.hours}>
+                        Friday: 10-6
+                    </Text>
+                    <Text style={styles.hours}>
+                        Saturday: 10-6
+                    </Text>
+                </View>
                 <Modal
                     animationType={'slide'}
                     transparent={false}
                     visible={this.state.showModal}
-                    onRequestClose={() => this.toggleModal()}
                 >
-                    <View style={styles.modal}>
+                    <SafeAreaView style={styles.modal}>
                         <Text>Thanks for downloading the app. Please enter your email to start receiving rewards.</Text>
                         <TextInput
                             style={styles.modalTextinput}
@@ -165,7 +171,7 @@ class Home extends Component {
                             color='#5637DD'
                             title='Register'
                         />
-                    </View>
+                    </SafeAreaView>
                 </Modal>
             </ScrollView>
         )
@@ -176,7 +182,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'black',
-        marginTop: 0
+        marginTop: 0,
+        paddingBottom: 50
     },
     image: {
         width: '100%',
@@ -198,6 +205,7 @@ const styles = StyleSheet.create({
     hours: {
         color: 'yellow',
         marginTop: 25,
+        marginLeft: 30,
         fontSize: 15
     },
     button: {
@@ -212,27 +220,29 @@ const styles = StyleSheet.create({
     lmt: {
         textAlign: 'center',
         color: 'white',
-        fontSize: 10,
+        fontSize: 15,
         marginTop: 10
     },
     covid: {
         color: 'white',
-        fontSize: 12,
+        fontSize: 15,
         marginVertical: 30
     },
     modal: {
+        position: 'absolute',
+        top: 0, left: 0,
+        right: 0, bottom: 0,
         justifyContent: 'center',
-        marginTop: 200,
-        width: 300,
-        marginLeft: 50
+        alignItems: 'center'
     },
     modalTextinput: {
-        height: 80,
         fontSize: 20,
         borderWidth: 1,
         borderStyle: 'solid',
-        marginTop: 20,
-        marginBottom: 50
+        marginTop: 30,
+        marginBottom: 50,
+        width: 350,
+        height: 50
     }
 })
 

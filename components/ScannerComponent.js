@@ -9,14 +9,14 @@ import { postNewuser } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
-        reward: state.reward,
-        newuser: state.newuser
+        newuser: state.newuser,
+        rewards: state.rewards
     };
 }
 
 const mapDispatchToProps = {
     postReward: (reward) => (postReward(reward)),
-    postReset: (reset) => (postReset(reset)),
+    postReset: () => (postReset()),
     postNewuser: (newuser) => (postNewuser(newuser))
 };
 
@@ -25,8 +25,7 @@ class Scanner extends Component {
         hasCameraPermission: false,
         scanned: false,
         reward: 'heart',
-        newuser: 'heart',
-        reset: []
+        newuser: 'heart'
     };
 
 
@@ -40,10 +39,9 @@ class Scanner extends Component {
     }
 
     resetRewards() {
-        const reset = this.state
-        this.props.postReset(reset)
+        this.props.postReset()
         Alert.alert(
-            'Congratulations',
+            'Thanks for being a loyal customer!',
             'You get a discount on your massage today!',
             [
                 {
@@ -56,11 +54,11 @@ class Scanner extends Component {
     }
 
     handleNewuser() {
-        const newuser = this.state
+        const newuser = this.state.newuser
         this.props.postNewuser(newuser)
         Alert.alert(
             'Thanks for downloading the app!',
-            'Come back again for more discounts!',
+            'Enjoy 20% off your first service!',
             [
                 {
                     text: 'OK',
@@ -72,11 +70,11 @@ class Scanner extends Component {
     }
 
     handleReward() {
-        const reward = this.state
+        const reward = this.state.reward
         this.props.postReward(reward)
         Alert.alert(
             'Congratulations',
-            'You earned another reward!',
+            'You earned a stamp!',
             [
                 {
                     text: 'OK',
@@ -89,14 +87,14 @@ class Scanner extends Component {
 
     handleBarCodeScanned = ({ data }) => {
         const hui = 'hui'
-        const rewards = this.props.reward.rewards
+        const rewards = this.props.rewards.rewards
         const newuser = this.props.newuser.newuser
         this.setState({ scanned: true });
         if (data === hui && newuser.length < 1) {
             return this.handleNewuser()
-        } else if (data === hui && rewards.length < 7) {
+        } else if (data === hui && rewards.length < 6) {
             return this.handleReward()
-        } else if (data === hui && rewards.length >= 7) {
+        } else if (data === hui && rewards.length >= 6) {
             return this.resetRewards()
         } else {
             console.log('ok')

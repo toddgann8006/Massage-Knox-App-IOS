@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Constants from 'expo-constants';
 import { View, Platform } from 'react-native';
+import { Icon } from "react-native-elements";
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
@@ -11,11 +12,12 @@ import Appointments from "./AppointmentsComponent";
 import Giftcards from "./GiftcardsComponent";
 import Rewards from "./RewardsComponent";
 import Scanner from "./ScannerComponent";
-import { fetchUser } from '../redux/ActionCreators';
+import { fetchNewuser, fetchRewards } from '../redux/ActionCreators';
 import { connect } from 'react-redux';
 
 const mapDispatchToProps = {
-    fetchUser
+    fetchNewuser,
+    fetchRewards
 }
 
 const HomeNavigator = createStackNavigator(
@@ -24,15 +26,22 @@ const HomeNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'Home',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft:
+                <Icon
+                    name='bars'
+                    onPress={() => navigation.toggleDrawer()}
+                    type='font-awesome'
+                    color='white'
+                />
+        })
     }
 );
 
@@ -42,15 +51,22 @@ const AboutNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'About',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft:
+                <Icon
+                    name='bars'
+                    onPress={() => navigation.toggleDrawer()}
+                    type='font-awesome'
+                    color='white'
+                />
+        })
     }
 );
 
@@ -60,15 +76,22 @@ const ServicesNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'Services',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft:
+                <Icon
+                    name='bars'
+                    onPress={() => navigation.toggleDrawer()}
+                    type='font-awesome'
+                    color='white'
+                />
+        })
     }
 );
 
@@ -78,15 +101,22 @@ const AppointmentsNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'Appointments',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft:
+                <Icon
+                    name='bars'
+                    onPress={() => navigation.toggleDrawer()}
+                    type='font-awesome'
+                    color='white'
+                />
+        })
     }
 );
 
@@ -96,15 +126,22 @@ const GiftcardsNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'Giftcards',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft:
+                <Icon
+                    name='bars'
+                    onPress={() => navigation.toggleDrawer()}
+                    type='font-awesome'
+                    color='white'
+                />
+        })
     }
 );
 
@@ -115,15 +152,22 @@ const RewardsNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'Rewards',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft:
+                <Icon
+                    name='bars'
+                    onPress={() => navigation.toggleDrawer()}
+                    type='font-awesome'
+                    color='white'
+                />
+        })
     }
 );
 
@@ -148,7 +192,8 @@ const AppNavigator = createAppContainer(MainNavigator);
 class Main extends Component {
 
     componentDidMount() {
-        this.props.fetchUser();
+        this.props.fetchNewuser();
+        this.props.fetchRewards();
     }
 
     render() {
