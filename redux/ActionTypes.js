@@ -13,6 +13,5 @@ export const ADD_EMAIL = 'ADD_EMAIL';
 export const RESET_EMAIL = 'RESET_EMAIL';
 export const EMAIL_FAILED = 'EMAIL_FAILED';
 
-export const MODAL_ON = 'MODAL_ON';
 export const MODAL_OFF = 'MODAL_OFF';
 

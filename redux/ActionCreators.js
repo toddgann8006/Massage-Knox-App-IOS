@@ -27,20 +27,9 @@ export const emailFailed = errMess => ({
     payload: errMess
 });
 
-export const modalOn = () => ({
-    type: ActionTypes.MODAL_ON
-})
-
-export const toggleModalOn = () => dispatch => {
-    setTimeout(() => {
-        dispatch(modalOn());
-    }, 2000);
-}
-
 export const modalOff = () => ({
     type: ActionTypes.MODAL_OFF
 })
-
 
 export const toggleModalOff = () => dispatch => {
     setTimeout(() => {

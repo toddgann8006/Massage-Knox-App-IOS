@@ -19,7 +19,6 @@ const mapDispatchToProps = {
     postUser: (email) => (postUser(email)),
     fetchNewuser: () => (fetchNewuser()),
     fetchRewards: () => (fetchRewards()),
-    toggleModalOn: () => (toggleModalOn()),
     toggleModalOff: () => (toggleModalOff())
 };
 
@@ -27,7 +26,6 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showModal: true,
             email: ""
         }
     }
@@ -56,7 +54,7 @@ class Home extends Component {
     }
 
     resetEmail() {
-        this.props.toggleModalOn();
+        this.setState({ email: "" })
         this.props.resEmail();
     }
 
