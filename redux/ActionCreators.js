@@ -12,9 +12,13 @@ export const postEmail = (email) => dispatch => {
     }, 2000);
 }
 
-export const resetEmail = (email) => dispatch => {
+export const resetEmail = () => ({
+    type: ActionTypes.RESET_EMAIL
+})
+
+export const resEmail = () => dispatch => {
     setTimeout(() => {
-        dispatch(addEmail(email));
+        dispatch(resetEmail());
     }, 2000);
 }
 
@@ -23,6 +27,26 @@ export const emailFailed = errMess => ({
     payload: errMess
 });
 
+export const modalOn = () => ({
+    type: ActionTypes.MODAL_ON
+})
+
+export const toggleModalOn = () => dispatch => {
+    setTimeout(() => {
+        dispatch(modalOn());
+    }, 2000);
+}
+
+export const modalOff = () => ({
+    type: ActionTypes.MODAL_OFF
+})
+
+
+export const toggleModalOff = () => dispatch => {
+    setTimeout(() => {
+        dispatch(modalOff());
+    }, 2000);
+}
 export const fetchNewuser = () => (dispatch, getState) => {
     dispatch(newuserLoading());
 
@@ -195,7 +219,7 @@ export const resetReward = reset => ({
     payload: reset
 });
 
-export const postReset = reset => (dispatch, getState) => {
+export const postReset = () => (dispatch, getState) => {
     const { email } = getState().email;
 
     return fetch(baseUrl + 'user/' + email, {

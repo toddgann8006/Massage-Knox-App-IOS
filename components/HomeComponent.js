@@ -2,21 +2,25 @@ import React, { Component } from "react";
 import { ScrollView, View, Image, StyleSheet, Linking, TouchableOpacity, Modal, TextInput, Button, Alert, SafeAreaView } from 'react-native';
 import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { postEmail, resetEmail, fetchNewuser, postUser, fetchRewards } from '../redux/ActionCreators';
+import InputValidation from 'react-native-input-validation';
+import { postEmail, resEmail, fetchNewuser, postUser, fetchRewards, toggleModalOff, toggleModalOn } from '../redux/ActionCreators';
 
 const mapStatetoProps = state => {
     return {
         email: state.email,
-        newuser: state.newuser
+        newuser: state.newuser,
+        modal: state.modal
     };
 };
 
 const mapDispatchToProps = {
     postEmail: (email) => (postEmail(email)),
-    resetEmail: (email) => (resetEmail(email)),
+    resEmail: () => (resEmail()),
     postUser: (email) => (postUser(email)),
     fetchNewuser: () => (fetchNewuser()),
-    fetchRewards: () => (fetchRewards())
+    fetchRewards: () => (fetchRewards()),
+    toggleModalOn: () => (toggleModalOn()),
+    toggleModalOff: () => (toggleModalOff())
 };
 
 class Home extends Component {
@@ -42,9 +46,8 @@ class Home extends Component {
 
     handleNewuser() {
         const email = this.state.email.toLowerCase()
-        this.props.postUser(email)
-        this.setState({ showModal: false });
-        console.log(this.props.newuser);
+        this.props.toggleModalOff();
+        this.props.postUser(email);
     }
 
     handleEmail() {
@@ -52,11 +55,9 @@ class Home extends Component {
         this.props.postEmail(email.toLowerCase());
     }
 
-    resEmail() {
-        const email = ""
-        this.setState({ showModal: true, email: "" })
-        this.props.resetEmail(email);
-        console.log(this.props.email)
+    resetEmail() {
+        this.props.toggleModalOn();
+        this.props.resEmail();
     }
 
     render() {
@@ -136,12 +137,13 @@ class Home extends Component {
                 <Modal
                     animationType={'slide'}
                     transparent={false}
-                    visible={this.state.showModal}
+                    visible={this.props.modal.showModal}
                 >
                     <SafeAreaView style={styles.modal}>
                         <Text>Thanks for downloading the app. Please enter your email to start receiving rewards.</Text>
-                        <TextInput
-                            style={styles.modalTextinput}
+                        <InputValidation
+                            textInputContainerStyle={styles.modalTextinput}
+                            validator="email"
                             value={this.state.email}
                             onChangeText={(email) =>
                                 this.setState({ email: email })
@@ -162,7 +164,7 @@ class Home extends Component {
                                         },
                                         {
                                             text: 'Cancel',
-                                            onPress: () => this.resEmail()
+                                            onPress: () => this.resetEmail()
                                         }
                                     ],
                                     { cancelable: false }

@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Button, SafeAreaView, Alert } from 'react-nativ
 import { connect } from 'react-redux';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { QR_CODE } from '@env';
 import { postReward } from '../redux/ActionCreators';
 import { postReset } from '../redux/ActionCreators';
 import { postNewuser } from '../redux/ActionCreators';
@@ -86,15 +87,14 @@ class Scanner extends Component {
     }
 
     handleBarCodeScanned = ({ data }) => {
-        const hui = 'hui'
         const rewards = this.props.rewards.rewards
         const newuser = this.props.newuser.newuser
         this.setState({ scanned: true });
-        if (data === hui && newuser.length < 1) {
+        if (data === QR_CODE && newuser.length < 1) {
             return this.handleNewuser()
-        } else if (data === hui && rewards.length < 6) {
+        } else if (data === QR_CODE && rewards.length < 6) {
             return this.handleReward()
-        } else if (data === hui && rewards.length >= 6) {
+        } else if (data === QR_CODE && rewards.length >= 6) {
             return this.resetRewards()
         } else {
             console.log('ok')
