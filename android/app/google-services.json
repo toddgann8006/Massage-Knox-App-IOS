@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "117377770548",
+    "project_id": "massageknox-9bd92",
+    "storage_bucket": "massageknox-9bd92.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117377770548:android:fd778b03b2fff0e0789661",
+        "android_client_info": {
+          "package_name": "com.toddgann8006.massageknox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117377770548-t2vevuv5vstcotsoojvg2slq8p1mkfo0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUWNrQwTPG-ftY1mHeucPG3EbLXiKFYTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117377770548-t2vevuv5vstcotsoojvg2slq8p1mkfo0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

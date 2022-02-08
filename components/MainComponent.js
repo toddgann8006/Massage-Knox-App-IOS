@@ -5,6 +5,7 @@ import { Icon } from "react-native-elements";
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
+import messaging from '@react-native-firebase/messaging';
 import Home from "./HomeComponent";
 import About from "./AboutComponent";
 import Services from "./ServicesComponent";
