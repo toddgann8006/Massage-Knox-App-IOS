@@ -66,7 +66,9 @@ class Home extends Component {
                 <Image
                     source={require('./images/logo.png')}
                     resizeMode='contain'
-                    style={styles.image} />
+                    style={styles.image}
+                    accessibilityLabel='Massage Knox Logo'
+                />
                 <Text
                     style={{ fontSize: 25, color: 'white', textAlign: 'center' }}
                 >
@@ -82,6 +84,7 @@ class Home extends Component {
                     <Image
                         source={require('./images/headshot.jpg')}
                         style={styles.headshot}
+                        accessibilityLabel='Shannon Cox LMT image'
                     />
                 </View>
                 <Text style={styles.lmt}>
@@ -132,12 +135,12 @@ class Home extends Component {
                         Saturday: 10-6
                     </Text>
                 </View>
-                <Modal
-                    animationType={'slide'}
-                    transparent={false}
-                    visible={this.props.modal.showModal}
-                >
-                    <SafeAreaView style={styles.modal}>
+                <SafeAreaView style={styles.modal}>
+                    <Modal
+                        animationType={'slide'}
+                        transparent={false}
+                        visible={this.props.modal.showModal}
+                    >
                         <Text>Thanks for downloading the app. Please enter your email to start receiving rewards.</Text>
                         <InputValidation
                             textInputContainerStyle={styles.modalTextinput}
@@ -146,6 +149,7 @@ class Home extends Component {
                             onChangeText={(email) =>
                                 this.setState({ email: email })
                             }
+                            placeholder='email'
                             ref={input => { this.textInput = input }}
                             returnKeyType="go"
                         />
@@ -171,8 +175,8 @@ class Home extends Component {
                             color='#5637DD'
                             title='Register'
                         />
-                    </SafeAreaView>
-                </Modal>
+                    </Modal>
+                </SafeAreaView>
             </ScrollView>
         )
     }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resources>
-  <string name="app_name">Massage Knox</string>
-   <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-   <string name="fcm_message">FCM Message</string>
-    <string name="msg_subscribed">Subscribed to all topic</string>
-    <string name="msg_subscribe_failed">Failed to subscribe to all topic</string>
+  <string name="app_name">massage-knox</string>
+  <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+  <string name="fcm_message">FCM Message</string>
+  <string name="msg_subscribed">Subscribed to all topic</string>
+  <string name="msg_subscribe_failed">Failed to subscribe to all topic</string>
 </resources>

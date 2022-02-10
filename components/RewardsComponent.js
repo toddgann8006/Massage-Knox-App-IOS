@@ -55,7 +55,7 @@ class Rewards extends Component {
                 <Icon
                     name={reward}
                     type='font-awesome'
-                    color='#5637DD'
+                    color='#FFFF00'
                     raised
                     reverse
                     key={i}
@@ -70,6 +70,7 @@ class Rewards extends Component {
                 <Image
                     source={require('./images/logo.png')}
                     resizeMode='contain'
+                    accessibilityLabel='Massage Knox Logo'
                     style={styles.image} />
                 <RenderText
                     newuser={this.props.newuser.newuser}
