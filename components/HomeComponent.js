@@ -95,7 +95,7 @@ class Home extends Component {
                         onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
                         style={styles.button}
                     >
-                        <Text>Email</Text>
+                        <Text style={styles.buttonText}>Email</Text>
                     </TouchableOpacity>
                 </View>
                 <Text style={styles.covid}>
@@ -111,7 +111,7 @@ class Home extends Component {
                         onPress={() => Linking.openURL('https://www.facebook.com/massageknox/?ref=py_c')}
                         style={styles.button}
                     >
-                        <Text>Find Me On Facebook</Text>
+                        <Text style={styles.buttonText}>Find Me On Facebook</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginBottom: 100 }}>
@@ -135,25 +135,32 @@ class Home extends Component {
                         Saturday: 10-6
                     </Text>
                 </View>
-                <SafeAreaView style={styles.modal}>
-                    <Modal
-                        animationType={'slide'}
-                        transparent={false}
-                        visible={this.props.modal.showModal}
-                    >
-                        <Text>Thanks for downloading the app. Please enter your email to start receiving rewards.</Text>
-                        <InputValidation
-                            textInputContainerStyle={styles.modalTextinput}
-                            validator="email"
-                            value={this.state.email}
-                            onChangeText={(email) =>
-                                this.setState({ email: email })
-                            }
-                            placeholder='email'
-                            ref={input => { this.textInput = input }}
-                            returnKeyType="go"
-                        />
-                        <Button
+                <Modal
+                    animationType={'slide'}
+                    transparent={false}
+                    visible={this.props.modal.showModal}
+                >
+                    <View
+                        style={styles.modal}>
+                        <View
+                            accessible
+                            accessibilityLabel="Enter email"
+                            style={{ paddingLeft: 25 }}
+                        >
+                            <Text style={{ color: 'yellow' }}>Thanks for downloading the app. Please enter your email to start receiving rewards.</Text>
+                            <InputValidation
+                                textInputContainerStyle={styles.modalTextinput}
+                                validator="email"
+                                value={this.state.email}
+                                onChangeText={(email) =>
+                                    this.setState({ email: email })
+                                }
+                                ref={input => { this.textInput = input }}
+                                returnKeyType="go"
+                            />
+                        </View>
+                        <TouchableOpacity
+                            style={styles.button}
                             onPress={() => {
                                 this.handleEmail()
                                 Alert.alert(
@@ -172,12 +179,14 @@ class Home extends Component {
                                     { cancelable: false }
                                 );
                             }}
-                            color='#5637DD'
-                            title='Register'
-                        />
-                    </Modal>
-                </SafeAreaView>
-            </ScrollView>
+                        >
+                            <Text style={styles.buttonText}>
+                                Register
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+            </ScrollView >
         )
     }
 }
@@ -215,11 +224,16 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: 'yellow',
         color: 'black',
-        width: '50%',
+        width: '70%',
+        height: 40,
         marginTop: 25,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 30
+    },
+    buttonText: {
+        fontSize: 18,
+        color: 'black'
     },
     lmt: {
         textAlign: 'center',
@@ -237,7 +251,9 @@ const styles = StyleSheet.create({
         top: 0, left: 0,
         right: 0, bottom: 0,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'black',
+        paddingHorizontal: 45
     },
     modalTextinput: {
         fontSize: 20,
@@ -245,8 +261,9 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         marginTop: 30,
         marginBottom: 50,
-        width: 350,
-        height: 50
+        width: 250,
+        height: 50,
+        backgroundColor: 'white'
     }
 })
 

@@ -28,7 +28,7 @@ class Appointments extends Component {
                         onPress={() => Linking.openURL('https://www.vagaro.com/us04/massageknoxbyshannoncox')}
                         style={styles.button}
                     >
-                        <Text>Book Now</Text>
+                        <Text style={styles.buttonText}>Book Now</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginTop: 40 }}>
@@ -44,7 +44,7 @@ class Appointments extends Component {
                         onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
                         style={styles.button}
                     >
-                        <Text>Email</Text>
+                        <Text style={styles.buttonText}>Email</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -85,11 +85,16 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: 'yellow',
         color: 'black',
-        width: '50%',
+        width: '70%',
+        height: 40,
         marginTop: 25,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 30
+    },
+    buttonText: {
+        fontSize: 18,
+        color: 'black'
     }
 })
 

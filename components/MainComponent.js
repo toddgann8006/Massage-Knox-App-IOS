@@ -178,7 +178,11 @@ const MainNavigator = createDrawerNavigator(
         About: { screen: AboutNavigator },
         Services: { screen: ServicesNavigator },
         Appointments: { screen: AppointmentsNavigator },
-        Giftcards: { screen: GiftcardsNavigator },
+        Giftcards: {
+            screen: GiftcardsNavigator, navigationOptions: {
+                title: 'Gift Cards'
+            }
+        },
         Rewards: { screen: RewardsNavigator }
     },
     {
@@ -202,7 +206,9 @@ class Main extends Component {
             <View
                 style={{
                     flex: 1,
-                    paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight
+                    paddingTop: Platform.OS === 'ios' ? 0 : 30,
+                    marginLeft: 20,
+                    marginRight: 20
                 }}>
                 <AppNavigator />
             </View>

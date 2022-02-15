@@ -38,7 +38,7 @@ class Giftcards extends Component {
                         onPress={() => Linking.openURL('https://squareup.com/gift/4CSXHA6RBTHT0/order')}
                         style={styles.button}
                     >
-                        <Text>Purchase Gift Cards</Text>
+                        <Text style={styles.buttonText}>Purchase Gift Cards</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginTop: 30, alignItems: 'center', marginBottom: 100 }}>
@@ -49,7 +49,7 @@ class Giftcards extends Component {
                         onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
                         style={styles.button}
                     >
-                        <Text>Email</Text>
+                        <Text style={styles.buttonText}>Email</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -96,12 +96,17 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: 'yellow',
         color: 'black',
-        width: '50%',
+        width: '70%',
+        height: 40,
         marginTop: 25,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
-    }
+        borderRadius: 30
+    },
+    buttonText: {
+        fontSize: 18,
+        color: 'black'
+    },
 })
 
 export default Giftcards;

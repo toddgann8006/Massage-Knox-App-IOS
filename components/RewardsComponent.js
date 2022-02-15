@@ -14,11 +14,9 @@ function RenderText(props) {
     const { newuser } = props
     if (newuser.length < 1) {
         return (
-            <View style={styles.container}>
-                <Text style={styles.text}>
-                    Thanks for downloading the app. Enjoy 20% off of your visit today.
-                </Text>
-            </View>
+            <Text style={styles.text}>
+                Thanks for downloading the app. Enjoy 20% off of your visit today.
+            </Text>
         )
     } else {
         return (
@@ -33,11 +31,11 @@ function RenderButtonText(props) {
     const { newuser, rewards } = props
     if (newuser.length < 1 || rewards.length >= 6) {
         return (
-            <Text>Redeem Reward</Text>
+            <Text style={styles.button}>Redeem Reward</Text>
         )
     } else {
         return (
-            <Text>Stamp Card</Text>
+            <Text style={styles.button}>Stamp Card</Text>
         )
     }
 }
@@ -59,7 +57,7 @@ class Rewards extends Component {
                     raised
                     reverse
                     key={i}
-                    size={17}
+                    size={14}
                 />
 
             )
@@ -67,14 +65,18 @@ class Rewards extends Component {
 
         return (
             <View style={styles.container}>
-                <Image
-                    source={require('./images/logo.png')}
-                    resizeMode='contain'
-                    accessibilityLabel='Massage Knox Logo'
-                    style={styles.image} />
-                <RenderText
-                    newuser={this.props.newuser.newuser}
-                />
+                <View style={styles.imageContainer}>
+                    <Image
+                        source={require('./images/logo.png')}
+                        resizeMode='contain'
+                        accessibilityLabel='Massage Knox Logo'
+                        style={styles.image} />
+                </View>
+                <View style={styles.text}>
+                    <RenderText
+                        newuser={this.props.newuser.newuser}
+                    />
+                </View>
                 <View style={styles.icon}>
                     {reward}
                 </View>
@@ -97,43 +99,50 @@ class Rewards extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        justifyContent: 'center'
     },
     icon: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 40
+        marginTop: 30,
+        marginBottom: 60
     },
-
     image: {
         width: '100%',
         height: undefined,
-        aspectRatio: 1.5,
+        aspectRatio: 2.5
+    },
+    imageContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
         marginBottom: 30
     },
     button: {
         backgroundColor: 'yellow',
         color: 'black',
         width: '50%',
-        marginTop: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10
+        fontSize: 18
     },
     bottomView: {
         width: '100%',
-        height: 50,
+        height: 40,
         backgroundColor: 'yellow',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         alignItems: 'center',
-        position: 'absolute',
-        bottom: 15,
-        fontSize: 40
+        marginBottom: 50,
+        color: 'black',
+        borderRadius: 10,
+        paddingBottom: 10,
+        fontWeight: 'bold'
     },
     text: {
         color: 'yellow',
         textAlign: 'center',
-        fontSize: 20
+        fontSize: 17,
+        width: '90%',
+        alignItems: 'center',
+        paddingLeft: 10
     }
 });
 
