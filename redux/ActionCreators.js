@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
+import PushNotification, { PushNotificationScheduledLocalObject } from 'react-native-push-notification';
 
 export const addEmail = email => ({
     type: ActionTypes.ADD_EMAIL,
@@ -36,6 +37,7 @@ export const toggleModalOff = () => dispatch => {
         dispatch(modalOff());
     }, 2000);
 }
+
 export const fetchNewuser = () => (dispatch, getState) => {
     dispatch(newuserLoading());
 
@@ -228,6 +230,37 @@ export const postReset = () => (dispatch, getState) => {
         .then(response => response.json())
         .then(dispatch(resetReward()))
         .catch(error => dispatch(rewardsFailed(error.message)))
-}
+};
 
+export const postNotifications = notification => dispatch => {
+    const newNotification = notification
+    return PushNotification.getDeliveredNotifications()
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => { throw error; }
+        )
+        .then(response => response.json())
+        .then(dispatch(addNoticiations(newNotification)))
+        .catch(error => dispatch(notificationsFailed(error.message)))
+};
 
+export const addNoticiations = notification => ({
+    type: ActionTypes.ADD_NOTIFICATIONS,
+    payload: notification
+})
+
+export const notificationsLoading = () => ({
+    type: ActionTypes.NOTIFICATIONS_LOADING
+});
+
+export const notificationsFailed = errMess => ({
+    type: ActionTypes.NOTIFICATIONS_FAILED,
+    payload: errMess
+});

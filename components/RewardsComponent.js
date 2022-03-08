@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, View, StyleSheet, Image } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet, Image, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
     return {
         newuser: state.newuser,
-        rewards: state.rewards
+        rewards: state.rewards,
+        email: state.email
     };
 };
 
@@ -46,6 +47,7 @@ class Rewards extends Component {
     }
 
     render() {
+        const email = this.props.email.email
         const { navigate } = this.props.navigation;
         const reward = this.props.rewards.rewards.map((reward, i) => {
             return (
@@ -62,9 +64,39 @@ class Rewards extends Component {
 
             )
         })
+        if(email === "") {
+            return(
+            <View style={styles.container}>
+                <View style={styles.view}>
+                    <View style={styles.imageContainer}>
+                        <Image
+                            source={require('./images/logo.png')}
+                            resizeMode='contain'
+                            accessibilityLabel='Massage Knox Logo'
+                            style={styles.image} />
+                    </View>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.text}>
+                            Please register on the Home Screen before receiving rewards.
+                        </Text>
+                    </View>
+                    <View style={styles.bottomViewRegister}>
+                        <TouchableOpacity
+                            onPress={() => navigate('Home')}
+                        >
+                            <Text style={styles.button}>
+                                Register
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+            )
+        }
 
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
+                <View style={styles.view}>
                 <View style={styles.imageContainer}>
                     <Image
                         source={require('./images/logo.png')}
@@ -72,7 +104,7 @@ class Rewards extends Component {
                         accessibilityLabel='Massage Knox Logo'
                         style={styles.image} />
                 </View>
-                <View style={styles.text}>
+                <View style={styles.textContainer}>
                     <RenderText
                         newuser={this.props.newuser.newuser}
                     />
@@ -90,7 +122,8 @@ class Rewards extends Component {
                         />
                     </TouchableOpacity>
                 </View>
-            </View>
+                </View>
+            </ScrollView>
         )
     }
 }
@@ -99,8 +132,15 @@ class Rewards extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black',
-        justifyContent: 'center'
+        marginTop: 0,
+        paddingVertical: 50,
+        backgroundColor: 'rgb(38,32,0)'
+    },
+    view: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(38,32,0)',
+        marginTop: 0
     },
     icon: {
         flexDirection: 'row',
@@ -109,14 +149,18 @@ const styles = StyleSheet.create({
         marginBottom: 60
     },
     image: {
-        width: '100%',
+        width: '80%',
         height: undefined,
-        aspectRatio: 2.5
+        aspectRatio: 1
     },
     imageContainer: {
-        justifyContent: 'center',
+        borderColor: 'yellow',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        backgroundColor: 'black',
+        paddingHorizontal: '20%',
         alignItems: 'center',
-        marginBottom: 30
+        width: '90%'
     },
     button: {
         backgroundColor: 'yellow',
@@ -125,7 +169,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     bottomView: {
-        width: '100%',
+        width: '80%',
         height: 40,
         backgroundColor: 'yellow',
         justifyContent: 'flex-end',
@@ -134,13 +178,36 @@ const styles = StyleSheet.create({
         color: 'black',
         borderRadius: 10,
         paddingBottom: 10,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginHorizontal: '10%'
+    },
+    bottomViewRegister: {
+        width: '70%',
+        height: 40,
+        backgroundColor: 'yellow',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginBottom: 50,
+        color: 'black',
+        borderRadius: 10,
+        paddingBottom: 10,
+        fontWeight: 'bold',
+        marginTop: 50
+    },
+    textContainer: {
+        alignItems: "center",
+        borderColor: 'yellow',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        backgroundColor: 'black',
+        paddingHorizontal: 10,
+        marginVertical: 20,
+        paddingVertical: 10,
+        marginHorizontal: '5%'
     },
     text: {
         color: 'yellow',
-        textAlign: 'center',
         fontSize: 17,
-        width: '90%',
         alignItems: 'center',
         paddingLeft: 10
     }

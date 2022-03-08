@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import Constants from 'expo-constants';
 import { View, Platform } from 'react-native';
-import { Icon } from "react-native-elements";
 import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
-import messaging from '@react-native-firebase/messaging';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from "./HomeComponent";
-import About from "./AboutComponent";
+import More from "./MoreComponent";
+import Contact from "./ContactComponent";
 import Services from "./ServicesComponent";
 import Appointments from "./AppointmentsComponent";
 import Giftcards from "./GiftcardsComponent";
 import Rewards from "./RewardsComponent";
 import Scanner from "./ScannerComponent";
+import Notifications from "./NotificationsComponent";
 import { fetchNewuser, fetchRewards } from '../redux/ActionCreators';
 import { connect } from 'react-redux';
 
@@ -27,121 +27,14 @@ const HomeNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'Home',
-        defaultNavigationOptions: ({ navigation }) => ({
+        defaultNavigationOptions: () => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            },
-            headerLeft:
-                <Icon
-                    name='bars'
-                    onPress={() => navigation.toggleDrawer()}
-                    type='font-awesome'
-                    color='white'
-                />
-        })
-    }
-);
-
-const AboutNavigator = createStackNavigator(
-    {
-        About: { screen: About }
-    },
-    {
-        initialRouteName: 'About',
-        defaultNavigationOptions: ({ navigation }) => ({
-            headerStyle: {
-                backgroundColor: '#000000'
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#fff'
-            },
-            headerLeft:
-                <Icon
-                    name='bars'
-                    onPress={() => navigation.toggleDrawer()}
-                    type='font-awesome'
-                    color='white'
-                />
-        })
-    }
-);
-
-const ServicesNavigator = createStackNavigator(
-    {
-        Services: { screen: Services }
-    },
-    {
-        initialRouteName: 'Services',
-        defaultNavigationOptions: ({ navigation }) => ({
-            headerStyle: {
-                backgroundColor: '#000000'
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#fff'
-            },
-            headerLeft:
-                <Icon
-                    name='bars'
-                    onPress={() => navigation.toggleDrawer()}
-                    type='font-awesome'
-                    color='white'
-                />
-        })
-    }
-);
-
-const AppointmentsNavigator = createStackNavigator(
-    {
-        Appointments: { screen: Appointments }
-    },
-    {
-        initialRouteName: 'Appointments',
-        defaultNavigationOptions: ({ navigation }) => ({
-            headerStyle: {
-                backgroundColor: '#000000'
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#fff'
-            },
-            headerLeft:
-                <Icon
-                    name='bars'
-                    onPress={() => navigation.toggleDrawer()}
-                    type='font-awesome'
-                    color='white'
-                />
-        })
-    }
-);
-
-const GiftcardsNavigator = createStackNavigator(
-    {
-        Giftcards: { screen: Giftcards }
-    },
-    {
-        initialRouteName: 'Giftcards',
-        defaultNavigationOptions: ({ navigation }) => ({
-            headerStyle: {
-                backgroundColor: '#000000'
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#fff'
-            },
-            headerLeft:
-                <Icon
-                    name='bars'
-                    onPress={() => navigation.toggleDrawer()}
-                    type='font-awesome'
-                    color='white'
-                />
+            }
         })
     }
 );
@@ -153,41 +46,103 @@ const RewardsNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'Rewards',
-        defaultNavigationOptions: ({ navigation }) => ({
+        defaultNavigationOptions: () => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            },
-            headerLeft:
-                <Icon
-                    name='bars'
-                    onPress={() => navigation.toggleDrawer()}
-                    type='font-awesome'
-                    color='white'
-                />
+            }
         })
     }
 );
 
-const MainNavigator = createDrawerNavigator(
+const NotificationsNavigator = createStackNavigator(
     {
-        Home: { screen: HomeNavigator },
-        About: { screen: AboutNavigator },
-        Services: { screen: ServicesNavigator },
-        Appointments: { screen: AppointmentsNavigator },
-        Giftcards: {
-            screen: GiftcardsNavigator, navigationOptions: {
-                title: 'Gift Cards'
-            }
-        },
-        Rewards: { screen: RewardsNavigator }
+        Notifications: { screen: Notifications}
     },
     {
-        drawerBackgroundColor: 'yellow'
+        initialRouteName: 'Notifications',
+        defaultNavigationOptions: () => ({
+            headerStyle: {
+                backgroundColor: '#000000'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            }
+        })
     }
+);
+
+const MoreNavigator = createStackNavigator(
+    {
+        More: { screen: More},
+        Contact: { screen: Contact },
+        Services: { screen: Services },
+        Giftcards: { screen: Giftcards },
+        Appointments: { screen: Appointments }
+    },
+    {
+        initialRouteName: 'More',
+        defaultNavigationOptions: () => ({
+            headerStyle: {
+                backgroundColor: '#000000'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            }
+        })
+    }
+);
+
+const MainNavigator = createBottomTabNavigator(
+    {
+        Home: { screen: HomeNavigator },
+        Rewards: { screen: RewardsNavigator },
+        Notifications: { screen: NotificationsNavigator},
+        More: { screen: MoreNavigator}
+    },
+    {
+        defaultNavigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, tintColor }) => {
+              const { routeName } = navigation.state;
+              let IconComponent = Ionicons;
+              let iconName;
+              if (routeName === 'Home') {
+                iconName = `home${focused ?
+                  '' : '-outline'
+                }`;
+              } else if (routeName === 'Rewards') {
+                iconName = `cash${focused ?
+                  '' : '-outline'
+                }`;
+              } else if (routeName === 'Notifications') {
+                iconName = `notifications${focused ?
+                  '' : '-outline'
+                }`;
+              } else if (routeName === 'More') {
+                iconName = `reorder-four${focused ?
+                  '' : '-outline'
+                }`;
+              }
+              return <IconComponent
+                       name={iconName}
+                       size={25}
+                       color={tintColor}
+                     />;
+            },
+          }),
+          tabBarOptions: {
+            activeTintColor: 'black',
+            inactiveTintColor: 'gray',
+            style: {
+                backgroundColor: 'yellow',
+              },
+          },
+        }
 );
 
 const AppNavigator = createAppContainer(MainNavigator);
@@ -207,8 +162,8 @@ class Main extends Component {
                 style={{
                     flex: 1,
                     paddingTop: Platform.OS === 'ios' ? 0 : 30,
-                    marginLeft: 20,
-                    marginRight: 20
+                    marginLeft: Platform.OS === 'ios' ? 0 : 20,
+                    marginRight: Platform.OS === 'ios' ? 0 : 20
                 }}>
                 <AppNavigator />
             </View>

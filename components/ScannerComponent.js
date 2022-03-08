@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button, SafeAreaView, Alert } from 'react-native';
+import { Text, View, StyleSheet, Button, SafeAreaView, Alert, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -129,6 +129,15 @@ class Scanner extends Component {
                         />
                     )}
                 </View>
+                <View style={styles.bottomView}>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.goBack()}
+                    >
+                        <Text>
+                            Back To Rewards
+                            </Text>
+                    </TouchableOpacity>
+                </View>
             </SafeAreaView>
         );
     }
@@ -150,6 +159,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         textAlign: 'center',
         fontSize: 50
+    },
+    bottomView: {
+        width: '100%',
+        height: 40,
+        backgroundColor: 'yellow',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginBottom: 50,
+        color: 'black',
+        paddingBottom: 10,
+        fontWeight: 'bold'
     }
 })
 

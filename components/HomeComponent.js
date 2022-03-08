@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { ScrollView, View, Image, StyleSheet, Linking, TouchableOpacity, Modal, TextInput, Button, Alert, SafeAreaView } from 'react-native';
+import { ScrollView, View, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
 import InputValidation from 'react-native-input-validation';
-import { postEmail, resEmail, fetchNewuser, postUser, fetchRewards, toggleModalOff, toggleModalOn } from '../redux/ActionCreators';
+import { postEmail, resEmail, fetchNewuser, postUser, fetchRewards, toggleModalOff} from '../redux/ActionCreators';
 
 const mapStatetoProps = state => {
     return {
@@ -44,8 +44,8 @@ class Home extends Component {
 
     handleNewuser() {
         const email = this.state.email.toLowerCase()
-        this.props.toggleModalOff();
         this.props.postUser(email);
+        this.props.toggleModalOff();
     }
 
     handleEmail() {
@@ -59,95 +59,28 @@ class Home extends Component {
     }
 
     render() {
-        return (
-            <ScrollView style={styles.container}
-                keyboardShouldPersistTaps='handled'
-            >
-                <Image
+        const modal = this.props.modal.showModal
+        let homescreen
+        if(modal === true) {
+            homescreen = 
+            <View style={styles.modal}>
+                <View style={styles.imageView}>
+                           <Image
                     source={require('./images/logo.png')}
                     resizeMode='contain'
                     style={styles.image}
                     accessibilityLabel='Massage Knox Logo'
-                />
-                <Text
-                    style={{ fontSize: 25, color: 'white', textAlign: 'center' }}
-                >
-                    located inside Nourish Skin Studio
-                </Text>
-                <Text style={styles.address}>
-                    110 Westfield Road Suite 1
-                </Text>
-                <Text style={styles.address}>
-                    Knoxville, TN 37919
-                </Text>
-                <View style={{ alignItems: 'center' }}>
-                    <Image
-                        source={require('./images/headshot.jpg')}
-                        style={styles.headshot}
-                        accessibilityLabel='Shannon Cox LMT image'
-                    />
+                /> 
                 </View>
-                <Text style={styles.lmt}>
-                    Shannon Cox, Licensed Massage Therapist
-                </Text>
-                <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity
-                        onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
-                        style={styles.button}
-                    >
-                        <Text style={styles.buttonText}>Email</Text>
-                    </TouchableOpacity>
-                </View>
-                <Text style={styles.covid}>
-                    <Text>
-                        Due to Covid 19 the lobby is closed and we are open by appointment only.
-                    </Text>
-                    <Text>
-                        Upon arrival, please wait in your vehicle.
-                    </Text>
-                </Text>
-                <View style={{ alignItems: 'center', marginBottom: 20 }}>
-                    <TouchableOpacity
-                        onPress={() => Linking.openURL('https://www.facebook.com/massageknox/?ref=py_c')}
-                        style={styles.button}
-                    >
-                        <Text style={styles.buttonText}>Find Me On Facebook</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ marginBottom: 100 }}>
-                    <Text
-                        style={{ fontSize: 20, color: 'yellow', marginTop: 25, marginLeft: 30 }}>
-                        Hours of availability:
-                    </Text>
-                    <Text style={styles.hours}>
-                        Tuesday: 10-2
-                    </Text>
-                    <Text style={styles.hours}>
-                        Wednesday: 10-5
-                    </Text>
-                    <Text style={styles.hours}>
-                        Thursday: 10-6
-                    </Text>
-                    <Text style={styles.hours}>
-                        Friday: 10-6
-                    </Text>
-                    <Text style={styles.hours}>
-                        Saturday: 10-6
-                    </Text>
-                </View>
-                <Modal
-                    animationType={'slide'}
-                    transparent={false}
-                    visible={this.props.modal.showModal}
-                >
-                    <View
-                        style={styles.modal}>
                         <View
                             accessible
                             accessibilityLabel="Enter email"
-                            style={{ paddingLeft: 25 }}
+                            style={styles.inputView}
                         >
-                            <Text style={{ color: 'yellow' }}>Thanks for downloading the app. Please enter your email to start receiving rewards.</Text>
+                            <Text style={styles.welcomeText}>
+                                Welcome to the Massage Knox By Shannon Cox Rewards App!
+                                Enter your email address to unlock rewards! We will never share your email address and you won't receive emails from the app. It will be used solely for logging your rewards.
+                            </Text>
                             <InputValidation
                                 textInputContainerStyle={styles.modalTextinput}
                                 validator="email"
@@ -159,6 +92,7 @@ class Home extends Component {
                                 returnKeyType="go"
                             />
                         </View>
+                        <View style={styles.registerView}>
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
@@ -184,8 +118,34 @@ class Home extends Component {
                                 Register
                             </Text>
                         </TouchableOpacity>
+                        </View>
                     </View>
-                </Modal>
+        } else {
+            homescreen = 
+            <View style={styles.modal}>
+                <View style={styles.imageView}>
+                <Image
+                    source={require('./images/logo.png')}
+                    resizeMode='contain'
+                    style={styles.image}
+                    accessibilityLabel='Massage Knox Logo'
+                />
+                </View>
+                <View style={styles.inputView}>
+                    <Text style={styles.welcomeTextHome}>
+                        With the Massage Knox By Shannon Cox Rewards App, you will be able to track your sessions with Shannon Cox, Licensed Massage Therapist on a digital stamp card simply by scanning a QR Code during your visit.
+                        After accruing a few stamps, you'll receive a discount on the next service. Plus you get a coupon to redeem right away!
+                        In addition, you will be able to book appointments and purchase gift cards for your loved ones right from your mobile device!
+                        And you'll get up to date information about last minute openings, sales, and specials!
+                    </Text>
+                </View>
+            </View>
+        }
+        return (
+            <ScrollView style={styles.container}
+                keyboardShouldPersistTaps='handled'
+            >
+               {homescreen}
             </ScrollView >
         )
     }
@@ -194,76 +154,82 @@ class Home extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black',
         marginTop: 0,
-        paddingBottom: 50
+        paddingVertical: 50,
+        backgroundColor: 'rgb(38,32,0)'
     },
     image: {
-        width: '100%',
+        width: '80%',
         height: undefined,
         aspectRatio: 1
     },
-    headshot: {
-        width: '50%',
-        height: undefined,
-        aspectRatio: 1,
-        marginTop: 50
+    imageView: {
+        borderColor: 'yellow',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        backgroundColor: 'black',
+        paddingHorizontal: '20%',
+        alignItems: 'center',
+        width: '90%'
     },
-    address: {
-        color: 'white',
-        textAlign: 'center',
-        marginTop: 25,
-        fontSize: 15
-    },
-    hours: {
-        color: 'yellow',
-        marginTop: 25,
-        marginLeft: 30,
-        fontSize: 15
+    registerView: {
+        borderColor: 'yellow',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        backgroundColor: 'black',
+        paddingHorizontal: '20%',
+        alignItems: 'center',
+        width: '90%'
     },
     button: {
         backgroundColor: 'yellow',
-        color: 'black',
         width: '70%',
         height: 40,
         marginTop: 25,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 30
+        borderRadius: 30,
+        marginBottom: 20
     },
     buttonText: {
         fontSize: 18,
         color: 'black'
     },
-    lmt: {
-        textAlign: 'center',
-        color: 'white',
-        fontSize: 15,
-        marginTop: 10
+    welcomeText: {
+        color: 'black',
+        fontSize: 16
     },
-    covid: {
-        color: 'white',
-        fontSize: 15,
-        marginVertical: 30
+    welcomeTextHome: {
+        color: 'black',
+        fontSize: 16,
+        paddingBottom: 10
     },
     modal: {
-        position: 'absolute',
-        top: 0, left: 0,
-        right: 0, bottom: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
-        paddingHorizontal: 45
+        backgroundColor: 'rgb(38,32,0)',
+        marginTop: 0
     },
     modalTextinput: {
         fontSize: 20,
         borderWidth: 1,
         borderStyle: 'solid',
         marginTop: 30,
-        marginBottom: 50,
+        marginBottom: 30,
         width: 250,
         height: 50,
         backgroundColor: 'white'
+    },
+    inputView: {
+        alignItems: "center",
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        backgroundColor: 'yellow',
+        paddingHorizontal: 10,
+        marginVertical: 20,
+        paddingTop: 10,
+        marginHorizontal: '5%'
     }
 })
 

@@ -6,10 +6,13 @@ class Services extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <View style={{ marginBottom: 100 }}>
+                <View style={styles.headerContainer}>
                     <Text style={styles.header}>
-                        Services-
+                        Services
                     </Text>
+                    </View>
+                    <View style={styles.view}>
+                    <View style={styles.textContainer}>
                     <Text style={styles.smallheader}>
                         Customized Massage:
                     </Text>
@@ -22,24 +25,8 @@ class Services extends Component {
                     <Text style={styles.price}>
                         30 min: $45 | 45 min: $55 | 60 min: $65 | 90 min: $90 | 120 min: $130
                     </Text>
-                    <Text style={styles.smallheader}>
-                        15 Minute Maintenance Massage:
-                    </Text>
-                    <Text style={styles.body}>
-                        Really need your neck worked on? Or your feet? Or just wanting a scalp, sinus and tmj massage and don't have much time? Stop in for 15 minutes of massage on a single area and leave refreshed!
-                    </Text>
-                    <Text style={styles.price}>
-                        $25
-                    </Text>
-                    <Text style={styles.smallheader}>
-                        Aromatherapy:
-                    </Text>
-                    <Text style={styles.body}>
-                        Essential oils can be added to the massage oil and beneath the face cradle.
-                    </Text>
-                    <Text style={styles.price}>
-                        $15
-                    </Text>
+                    </View>
+                    <View style={styles.textContainer}>
                     <Text style={styles.smallheader}>
                         Pregnancy Massage:
                     </Text>
@@ -49,6 +36,7 @@ class Services extends Component {
                     <Text style={styles.price}>
                         30 min: $45 | 45 min: $55 | 60 min: $65
                     </Text>
+                    </View>
                 </View>
             </ScrollView>
         )
@@ -58,14 +46,38 @@ class Services extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black',
+        backgroundColor: 'rgb(38,32,0)',
+        marginTop: 0
+    },
+    view: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(38,32,0)',
         marginTop: 0,
-        paddingLeft: 30
+        marginBottom: 30,
+        paddingHorizontal: '3%'
     },
     header: {
         fontSize: 40,
         color: 'yellow',
         marginTop: 30
+    },
+    headerContainer: {
+        backgroundColor: 'black',
+        alignItems: 'center',
+        marginBottom: 20,
+        paddingBottom: 10
+    },
+    textContainer: {
+        alignItems: "center",
+        borderColor: 'yellow',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        backgroundColor: 'black',
+        paddingHorizontal: '10%',
+        marginVertical: 20,
+        paddingVertical: 10,
+        marginHorizontal: '5%'
     },
     smallheader: {
         fontSize: 25,

@@ -1,4 +1,4 @@
-rootProject.name = 'massage-knox'
+rootProject.name = 'Massage Knox'
 
 apply from: '../node_modules/react-native-unimodules/gradle.groovy'
 includeUnimodulesProjects()
