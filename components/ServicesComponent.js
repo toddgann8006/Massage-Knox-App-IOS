@@ -39,9 +39,9 @@ class Services extends Component {
                     </View>
                 </View>
             </ScrollView>
-        )
-    }
-}
+        );
+    };
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -97,6 +97,6 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         fontWeight: 'bold'
     }
-})
+});
 
 export default Services;

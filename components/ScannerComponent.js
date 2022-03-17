@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button, SafeAreaView, Alert, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Button, SafeAreaView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -29,30 +29,20 @@ class Scanner extends Component {
         newuser: 'heart'
     };
 
+    // Checks if user has given permission to use the camera and waits for a response 
 
     async componentDidMount() {
         this.getPermissionsAsync();
-    }
+    };
+
+    // After receiving permission, this sets hasCameraPermission state granted.
 
     getPermissionsAsync = async () => {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasCameraPermission: status === 'granted' });
-    }
+    };
 
-    resetRewards() {
-        this.props.postReset()
-        Alert.alert(
-            'Thanks for being a loyal customer!',
-            'You get a discount on your massage today!',
-            [
-                {
-                    text: 'OK',
-                    onPress: () => this.props.navigation.goBack()
-                },
-            ],
-            { cancelable: false }
-        );
-    }
+    // After scanning QR code, this redeems initial reward and adds reward to the newuser array in newuser reducer
 
     handleNewuser() {
         const newuser = this.state.newuser
@@ -68,7 +58,9 @@ class Scanner extends Component {
             ],
             { cancelable: false }
         );
-    }
+    };
+
+    // This adds reward to rewards array in rewards reducer after scanning QR code.
 
     handleReward() {
         const reward = this.state.reward
@@ -84,7 +76,26 @@ class Scanner extends Component {
             ],
             { cancelable: false }
         );
-    }
+    };
+
+    // After getting six rewards and scanning the QR code, this sets the rewards array in rewards reducer to empty
+
+    resetRewards() {
+        this.props.postReset()
+        Alert.alert(
+            'Thanks for being a loyal customer!',
+            'You get a discount on your massage today!',
+            [
+                {
+                    text: 'OK',
+                    onPress: () => this.props.navigation.goBack()
+                },
+            ],
+            { cancelable: false }
+        );
+    };
+
+    // When QR code is scanned, this checks to see if it matches. If it does, it then checks to see which method to call based on the length of newuser and rewards prop. It also sets state of scanned to true. This prevents it from scanning again.
 
     handleBarCodeScanned = ({ data }) => {
         const rewards = this.props.rewards.rewards
@@ -98,8 +109,8 @@ class Scanner extends Component {
             return this.resetRewards()
         } else {
             console.log('ok')
-        }
-    }
+        };
+    };
 
     render() {
         const { hasCameraPermission, scanned } = this.state;
@@ -116,7 +127,6 @@ class Scanner extends Component {
                     Scan Now
                 </Text>
                 <View style={styles.mainView}>
-
                     <BarCodeScanner
                         onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
                         style={StyleSheet.absoluteFillObject}
@@ -129,20 +139,10 @@ class Scanner extends Component {
                         />
                     )}
                 </View>
-                <View style={styles.bottomView}>
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.goBack()}
-                    >
-                        <Text>
-                            Back To Rewards
-                            </Text>
-                    </TouchableOpacity>
-                </View>
             </SafeAreaView>
         );
-    }
-
-}
+    };
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -159,18 +159,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         textAlign: 'center',
         fontSize: 50
-    },
-    bottomView: {
-        width: '100%',
-        height: 40,
-        backgroundColor: 'yellow',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        marginBottom: 50,
-        color: 'black',
-        paddingBottom: 10,
-        fontWeight: 'bold'
     }
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scanner);

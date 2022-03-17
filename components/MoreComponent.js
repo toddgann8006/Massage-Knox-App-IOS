@@ -64,9 +64,9 @@ class More extends Component {
                         </TouchableOpacity>
                     </View>
             </ScrollView>
-        )
-    }
-}
+        );
+    };
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -103,6 +103,6 @@ const styles = StyleSheet.create({
         marginHorizontal: '2%',
         marginTop: '5%'
     }
-})
+});
 
 export default More;

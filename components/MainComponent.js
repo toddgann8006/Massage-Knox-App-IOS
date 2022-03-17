@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Platform } from 'react-native';
+import { connect } from 'react-redux';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
@@ -14,12 +15,11 @@ import Rewards from "./RewardsComponent";
 import Scanner from "./ScannerComponent";
 import Notifications from "./NotificationsComponent";
 import { fetchNewuser, fetchRewards } from '../redux/ActionCreators';
-import { connect } from 'react-redux';
 
 const mapDispatchToProps = {
     fetchNewuser,
     fetchRewards
-}
+};
 
 const HomeNavigator = createStackNavigator(
     {
@@ -154,7 +154,7 @@ class Main extends Component {
     componentDidMount() {
         this.props.fetchNewuser();
         this.props.fetchRewards();
-    }
+    };
 
     render() {
         return (
@@ -168,7 +168,7 @@ class Main extends Component {
                 <AppNavigator />
             </View>
         );
-    }
-}
+    };
+};
 
 export default connect(null, mapDispatchToProps)(Main);

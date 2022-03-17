@@ -13,15 +13,15 @@ class Contact extends Component {
                 </View>
                 <View style={styles.view}>
                     <View style={styles.imageView}>
-                    <Image
+                        <Image
                             source={require('./images/headshot.jpg')}
                             style={styles.image}
                             accessibilityLabel='Shannon Cox LMT image'
                         />
                         <Text style={styles.text}>
-                        Shannon Cox, 
-                    </Text>
-                    <Text style={styles.text2}>Licensed Massage Therapist</Text>
+                            Shannon Cox,
+                        </Text>
+                        <Text style={styles.text2}>Licensed Massage Therapist</Text>
                         <TouchableOpacity
                             onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
                             style={styles.button}
@@ -31,7 +31,7 @@ class Contact extends Component {
                     </View>
                     <View style={styles.textView}>
                         <Text style={styles.text3}>
-                                located inside Nourish Skin Studio
+                            located inside Nourish Skin Studio
                         </Text>
                         <Text style={styles.text3}>
                             110 Westfield Rd.
@@ -42,11 +42,11 @@ class Contact extends Component {
                         <TouchableOpacity
                             onPress={() => Linking.canOpenURL("fb://profile/1515073285379894").then(supported => {
                                 if (supported) {
-                                  return Linking.openURL("fb://profile/1515073285379894");
+                                    return Linking.openURL("fb://profile/1515073285379894");
                                 } else {
-                                  return Linking.openURL("https://www.facebook.com/massageknox");
+                                    return Linking.openURL("https://www.facebook.com/massageknox");
                                 }
-                              })}
+                            })}
                             style={styles.button}
                         >
                             <Text style={styles.buttonText}>Find Me On Facebook</Text>
@@ -54,9 +54,9 @@ class Contact extends Component {
                     </View>
                 </View>
             </ScrollView>
-        )
-    }
-}
+        );
+    };
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         paddingHorizontal: 20,
         alignItems: 'center',
-        marginTop: 20, 
+        marginTop: 20,
         paddingTop: 15,
         width: '100%',
         marginBottom: 40
@@ -133,11 +133,11 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         backgroundColor: 'black',
         alignItems: 'center',
-        padding: 10, 
+        padding: 10,
         width: '100%',
         marginTop: 10,
         marginBottom: 20
     }
-})
+});
 
 export default Contact;

@@ -8,32 +8,38 @@ class Notifications extends Component {
         this.state = {
             notifications: []
         }
-    }
+    };
 
     componentDidMount() {
         this.getNotifications();
-    }
+    };
 
     componentDidUpdate(prevState) {
         if (this.state.notifications !== prevState.notifications) {
             this.getNotifications();
         }
-    }
+    };
+
+    // Gets all unopened notifications for the app from the Notification center and adds then to notifications array in state
 
     getNotifications(){
         PushNotificationIOS.getDeliveredNotifications((all) => {
             console.log(all, "notifications list");
             this.setState({notifications: all})
         })
-    }
+    };
+
+    // Deletes all notifications for the app from the Notification center and sets notification array in state to empty
 
     deleteNotifications(){
         PushNotificationIOS.removeAllDeliveredNotifications();
         this.setState({notifications: []})
-    }
+    };
 
     render() {
-        console.log(this.state.notifications)
+
+// Maps over items in notification array in state and displays the Body and Date of each notification
+
         const notif = this.state.notifications.map((notif, i) => {
             return(
                 <View style={styles.notificationsContainer}>
@@ -47,6 +53,7 @@ class Notifications extends Component {
                 </View>
             )
         })
+// Checks if there are any notifications in the notifications array in state. If none are found, displays no new notifications
         if(notif.length === 0){
             return (
                 <ScrollView style={styles.container}>
@@ -61,6 +68,7 @@ class Notifications extends Component {
                 </ScrollView>
             )
         }
+// Displays all notifications in the notifications array in state and adds a button to remove them if the user wants
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.headerContainer}>
