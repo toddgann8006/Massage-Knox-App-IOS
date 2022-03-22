@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { ScrollView, View, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { ScrollView, View, Image, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
-import InputValidation from 'react-native-input-validation';
 import Loading from "./LoadingComponent";
 import { postEmail, resEmail, fetchNewuser, postUser, fetchRewards, toggleModalOff } from '../redux/ActionCreators';
 
@@ -28,7 +27,9 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: ""
+            email: "",
+            validEmail: false,
+            emailError: ""
         }
     }
 
@@ -66,6 +67,24 @@ class Home extends Component {
         this.props.resEmail();
     };
 
+    //Checks if email is valid. If invalid, register is disabled
+
+    onChangeEmail(email) {
+        const emailCheckRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        this.setState({ email });
+        if (emailCheckRegex.test(email)) {
+            this.setState({
+                validEmail: true,
+                emailError: ""
+            });
+        } else if (!emailCheckRegex.test(email)) {
+            this.setState({
+                validEmail: false,
+                emailError: "Invalid email address."
+            });
+        }
+    };
+
     render() {
         const modal = this.props.modal.showModal
         const email = this.props.email;
@@ -97,20 +116,21 @@ class Home extends Component {
                             Welcome to the Massage Knox By Shannon Cox Rewards App!
                             Enter your email address to unlock rewards! We will never share your email address and you won't receive emails from the app. It will be used solely for logging your rewards.
                         </Text>
-                        <InputValidation
-                            textInputContainerStyle={styles.modalTextinput}
-                            validator="email"
+                        <TextInput
+                            style={styles.modalTextinput}
                             value={this.state.email}
                             onChangeText={(email) =>
-                                this.setState({ email: email })
+                                this.onChangeEmail(email)
                             }
                             ref={input => { this.textInput = input }}
                             returnKeyType="go"
                         />
+                        <Text style={styles.emailError}>{this.state.emailError}</Text>
                     </View>
                     <View style={styles.registerView}>
                         <TouchableOpacity
                             style={styles.button}
+                            disabled={!this.state.validEmail}
                             onPress={() => {
                                 this.handleEmail()
                                 Alert.alert(
@@ -236,7 +256,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderStyle: 'solid',
         marginTop: 30,
-        marginBottom: 30,
+        marginBottom: 15,
         width: 250,
         height: 50,
         backgroundColor: 'white'
@@ -251,6 +271,11 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         paddingTop: 10,
         marginHorizontal: '5%'
+    },
+    emailError: {
+        color: "red",
+        paddingBottom: 10,
+        fontSize: 16
     }
 })
 
