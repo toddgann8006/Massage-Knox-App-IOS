@@ -13,6 +13,9 @@ export const email = (state = { errMess: null, email: "" }, action) => {
         case ActionTypes.RESET_EMAIL:
             return { ...state, errMess: null, email: "" };
 
+        case ActionTypes.RESET_EMAIL_ERROR:
+            return { ...state, errMess: null }
+
         case ActionTypes.EMAIL_LOADING:
             return { ...state, isLoading: true, errMess: null, email: "" };
 

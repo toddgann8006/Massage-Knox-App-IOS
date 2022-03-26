@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { ScrollView, View, Image, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { ScrollView, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { withNavigationFocus } from 'react-navigation';
 import Loading from "./LoadingComponent";
-import { postEmail, resEmail, fetchNewuser, postUser, fetchRewards, toggleModalOff } from '../redux/ActionCreators';
+import { resetEmailError, fetchNewuser, fetchRewards} from '../redux/ActionCreators';
 
-const mapStatetoProps = state => {
+const mapStateToProps = state => {
     return {
         email: state.email,
         newuser: state.newuser,
@@ -15,12 +16,9 @@ const mapStatetoProps = state => {
 };
 
 const mapDispatchToProps = {
-    postEmail: (email) => (postEmail(email)),
-    resEmail: () => (resEmail()),
-    postUser: (email) => (postUser(email)),
     fetchNewuser: () => (fetchNewuser()),
     fetchRewards: () => (fetchRewards()),
-    toggleModalOff: () => (toggleModalOff())
+    resetEmailError: () => (resetEmailError())
 };
 
 class Home extends Component {
@@ -34,130 +32,88 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchNewuser();
-        this.props.fetchRewards();
+        const email = this.props.email.email
+        if (email.length > 0) {
+            this.props.fetchNewuser();
+            this.props.fetchRewards();
+        };
     };
 
     componentDidUpdate(prevProps) {
         if (this.props.email !== prevProps.email) {
             this.props.fetchNewuser();
             this.props.fetchRewards();
-        }
+        };
     };
 
-    // Takes value of email state in Home component and sends it to addEmail in email reducer
-
-    handleEmail() {
-        const { email } = this.state
-        this.props.postEmail(email.toLowerCase());
-    };
-
-    // If user confirms this is the correct email, this sends POST request with the email value to the server 
-
-    handleNewuser() {
-        const email = this.state.email.toLowerCase()
-        this.props.postUser(email);
-        this.props.toggleModalOff();
-    };
-
-    // If user hits cancel on alert, this allows them to enter a different email and sets the email state in Home component to empty
-
-    resetEmail() {
-        this.setState({ email: "" })
-        this.props.resEmail();
-    };
-
-    //Checks if email is valid. If invalid, register is disabled
-
-    onChangeEmail(email) {
-        const emailCheckRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        this.setState({ email });
-        if (emailCheckRegex.test(email)) {
-            this.setState({
-                validEmail: true,
-                emailError: ""
-            });
-        } else if (!emailCheckRegex.test(email)) {
-            this.setState({
-                validEmail: false,
-                emailError: "Invalid email address."
-            });
-        }
-    };
+    resetError() {
+        const {navigate} = this.props.navigation
+        this.props.resetEmailError();
+        navigate('Rewards');
+    }
 
     render() {
-        const modal = this.props.modal.showModal
-        const email = this.props.email;
-        const rewards = this.props.rewards;
-        const newuser = this.props.newuser;
-        let homescreen
+        const newuser = this.props.newuser
+        const email = this.props.email
+        const rewards = this.props.rewards
+        const { navigate } = this.props.navigation;
+        let errMessage
+        if (email.errMess) {
+            errMessage = email.errMess
+        } if (rewards.errMess) {
+            errMessage = rewards.errMess
+        } if (newuser.errMess) {
+            errMessage = newuser.errMess
+        }
+
         if (email.isLoading || rewards.isLoading || newuser.isLoading) {
             return (
                 <Loading />
             );
-        }
-        if (modal === true) {
-            homescreen =
-                <View style={styles.modal}>
-                    <View style={styles.imageView}>
-                        <Image
-                            source={require('./images/logo.png')}
-                            resizeMode='contain'
-                            style={styles.image}
-                            accessibilityLabel='Massage Knox Logo'
-                        />
-                    </View>
-                    <View
-                        accessible
-                        accessibilityLabel="Enter email"
-                        style={styles.inputView}
-                    >
-                        <Text style={styles.welcomeText}>
-                            Welcome to the Massage Knox By Shannon Cox Rewards App!
-                            Enter your email address to unlock rewards! We will never share your email address and you won't receive emails from the app. It will be used solely for logging your rewards.
-                        </Text>
-                        <TextInput
-                            style={styles.modalTextinput}
-                            value={this.state.email}
-                            onChangeText={(email) =>
-                                this.onChangeEmail(email)
-                            }
-                            ref={input => { this.textInput = input }}
-                            returnKeyType="go"
-                        />
-                        <Text style={styles.emailError}>{this.state.emailError}</Text>
-                    </View>
-                    <View style={styles.registerView}>
-                        <TouchableOpacity
-                            style={styles.button}
-                            disabled={!this.state.validEmail}
-                            onPress={() => {
-                                this.handleEmail()
-                                Alert.alert(
-                                    `Is ${this.state.email} the correct email?`,
-                                    "Click Ok to continue or Cancel to enter a different email.",
-                                    [
-                                        {
-                                            text: 'OK',
-                                            onPress: () => this.handleNewuser()
-                                        },
-                                        {
-                                            text: 'Cancel',
-                                            onPress: () => this.resetEmail()
+        };
+
+        if (email.email.length > 0) {
+            if (email.errMess) {
+                return (
+                    <ScrollView style={styles.errorContainer}>
+                        <View style={styles.view}>
+                            <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                            <View style={styles.errorView}>
+                                <TouchableOpacity
+                                    onPress={() => this.resetError()
                                         }
-                                    ],
-                                    { cancelable: false }
-                                );
-                            }}
-                        >
-                            <Text style={styles.buttonText}>
-                                Register
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-        } else {
-            homescreen =
+                                >
+                                    <Text>
+                                        Go Back
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </ScrollView>
+                )
+            }
+            if (rewards.errMess || newuser.errMess) {
+                return (
+                    <ScrollView style={styles.errorContainer}>
+                        <View style={styles.view}>
+                            <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                            <View style={styles.errorView}>
+                                <TouchableOpacity
+                                    onPress={() => navigate('Rewards')}
+                                >
+                                    <Text>
+                                        Go Back
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </ScrollView>
+                )
+            };
+        };
+
+        return (
+            <ScrollView style={styles.container}>
                 <View style={styles.welcome}>
                     <View style={styles.imageView}>
                         <Image
@@ -176,12 +132,6 @@ class Home extends Component {
                         </Text>
                     </View>
                 </View>
-        }
-        return (
-            <ScrollView style={styles.container}
-                keyboardShouldPersistTaps='handled'
-            >
-                {homescreen}
             </ScrollView >
         )
     };
@@ -192,6 +142,12 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 0,
         backgroundColor: 'rgb(38,32,0)'
+    },
+    errorContainer: {
+        flex: 1,
+        marginTop: 0,
+        backgroundColor: 'rgb(38,32,0)',
+        paddingVertical: 30
     },
     image: {
         width: '80%',
@@ -207,6 +163,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '90%'
     },
+    view: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(38,32,0)',
+        marginTop: 0
+    },
     registerView: {
         borderColor: 'yellow',
         borderStyle: 'solid',
@@ -215,6 +178,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: '20%',
         alignItems: 'center',
         width: '90%'
+    },
+    errorView: {
+        width: '70%',
+        height: 40,
+        backgroundColor: 'yellow',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginBottom: 50,
+        color: 'black',
+        borderRadius: 10,
+        paddingBottom: 10,
+        fontWeight: 'bold',
+        marginTop: 50
     },
     button: {
         backgroundColor: 'yellow',
@@ -276,7 +252,23 @@ const styles = StyleSheet.create({
         color: "red",
         paddingBottom: 10,
         fontSize: 16
+    },
+    text: {
+        color: 'yellow',
+        fontSize: 17,
+        alignItems: 'center',
+        paddingLeft: 10
+    },
+    errorButton: {
+        backgroundColor: 'yellow',
+        width: '70%',
+        height: 40,
+        marginTop: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 30,
+        marginBottom: 20
     }
 })
 
-export default connect(mapStatetoProps, mapDispatchToProps)(Home);
+export default withNavigationFocus(connect(mapStateToProps, mapDispatchToProps)(Home));

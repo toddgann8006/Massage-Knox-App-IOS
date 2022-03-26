@@ -29,7 +29,7 @@ export const postUser = email => dispatch => {
         )
         .then(response => response.json())
         .then(email => {
-            dispatch(addEmail(email));
+            dispatch(addEmail(email.email));
         })
         .catch(error => dispatch(emailFailed(error.message)));
 };
@@ -267,4 +267,14 @@ export const toggleModalOff = () => dispatch => {
 
 export const modalOff = () => ({
     type: ActionTypes.MODAL_OFF
+});
+
+export const resetEmailError= () => dispatch => {
+    setTimeout(() => {
+        dispatch(resetEmailErr());
+    }, 2000);
+};
+
+export const resetEmailErr = () => ({
+    type: ActionTypes.RESET_EMAIL_ERROR
 });

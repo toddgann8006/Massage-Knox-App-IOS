@@ -8,6 +8,16 @@ class More extends Component {
         return (
             <ScrollView style={styles.container}>
                     <View style={styles.registerView}>
+                    <TouchableOpacity
+                        onPress={() => navigate('Register')}
+                        style={styles.button}
+                    >
+                        <Text style={styles.buttonText}>
+                            Register
+                        </Text>
+                    </TouchableOpacity>
+                    </View>
+                    <View style={styles.registerView}>
                         <TouchableOpacity 
                         onPress={() => navigate('Contact')}
                         style={styles.button}

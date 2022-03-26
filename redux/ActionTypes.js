@@ -2,6 +2,7 @@ export const ADD_EMAIL = 'ADD_EMAIL';
 export const RESET_EMAIL = 'RESET_EMAIL';
 export const EMAIL_LOADING = 'EMAIL_LOADING';
 export const EMAIL_FAILED = 'EMAIL_FAILED';
+export const RESET_EMAIL_ERROR ='RESET_EMAIL_ERROR';
 
 export const MODAL_OFF = 'MODAL_OFF';
 

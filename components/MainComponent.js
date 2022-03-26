@@ -12,9 +12,16 @@ import Services from "./ServicesComponent";
 import Appointments from "./AppointmentsComponent";
 import Giftcards from "./GiftcardsComponent";
 import Rewards from "./RewardsComponent";
+import Register from "./RegisterComponent";
 import Scanner from "./ScannerComponent";
 import Notifications from "./NotificationsComponent";
 import { fetchNewuser, fetchRewards } from '../redux/ActionCreators';
+
+const mapStateToProps = state => {
+    return {
+        email: state.email
+    };
+};
 
 const mapDispatchToProps = {
     fetchNewuser,
@@ -42,7 +49,8 @@ const HomeNavigator = createStackNavigator(
 const RewardsNavigator = createStackNavigator(
     {
         Rewards: { screen: Rewards },
-        Scanner: { screen: Scanner }
+        Scanner: { screen: Scanner },
+        Register: { screen: Register }
     },
     {
         initialRouteName: 'Rewards',
@@ -79,6 +87,7 @@ const NotificationsNavigator = createStackNavigator(
 const MoreNavigator = createStackNavigator(
     {
         More: { screen: More},
+        Register: { screen: Register },
         Contact: { screen: Contact },
         Services: { screen: Services },
         Giftcards: { screen: Giftcards },
@@ -152,8 +161,11 @@ const AppNavigator = createAppContainer(MainNavigator);
 class Main extends Component {
 
     componentDidMount() {
-        this.props.fetchNewuser();
-        this.props.fetchRewards();
+        const email = this.props.email.email
+        if (email.length > 0) {
+            this.props.fetchNewuser();
+            this.props.fetchRewards();
+        };
     };
 
     render() {
@@ -171,4 +183,4 @@ class Main extends Component {
     };
 };
 
-export default connect(null, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
