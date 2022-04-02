@@ -204,15 +204,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '90%'
     },
-    registerView: {
-        borderColor: 'yellow',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'black',
-        paddingHorizontal: '20%',
-        alignItems: 'center',
-        width: '90%'
-    },
     text: {
         color: 'yellow',
         fontSize: 17,
