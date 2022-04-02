@@ -76,8 +76,8 @@ class Home extends Component {
             if (email.errMess) {
                 return (
                     <ScrollView style={styles.errorContainer}>
-                        <View style={styles.view}>
-                            <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                        <View style={styles.mainView}>
+                            <Text style={styles.errorText}>Sorry, there was an error. {errMessage}</Text>
                             <View style={styles.errorView}>
                                 <TouchableOpacity
                                     onPress={() => this.resetError()
@@ -95,8 +95,8 @@ class Home extends Component {
             if (rewards.errMess || newuser.errMess) {
                 return (
                     <ScrollView style={styles.errorContainer}>
-                        <View style={styles.view}>
-                            <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                        <View style={styles.mainView}>
+                            <Text style={styles.errorText}>Sorry, there was an error. {errMessage}</Text>
                             <View style={styles.errorView}>
                                 <TouchableOpacity
                                     onPress={() => navigate('Rewards')}
@@ -124,7 +124,7 @@ class Home extends Component {
                         />
                     </View>
                     <View style={styles.textView}>
-                        <Text style={styles.welcomeTextHome}>
+                        <Text style={styles.text}>
                             With the Massage Knox By Shannon Cox Rewards App, you will be able to track your sessions with Shannon Cox, Licensed Massage Therapist on a digital stamp card simply by scanning a QR Code during your visit.
                             After accruing a few stamps, you'll receive a discount on the next service. Plus you get a coupon to redeem right away!
                             In addition, you will be able to book appointments and purchase gift cards for your loved ones right from your mobile device!
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '90%'
     },
-    view: {
+    errorView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -184,11 +184,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 50
     },
-    welcomeText: {
-        color: 'black',
-        fontSize: 16
-    },
-    welcomeTextHome: {
+    text: {
         color: 'black',
         fontSize: 16,
         paddingBottom: 10
@@ -204,9 +200,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '90%'
     },
-    text: {
+    errorText: {
         color: 'yellow',
-        fontSize: 17,
+        fontSize: 16,
         alignItems: 'center',
         paddingLeft: 10
     },

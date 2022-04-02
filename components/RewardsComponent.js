@@ -165,10 +165,10 @@ class Rewards extends Component {
         if (email.email.length > 0) {
             if (email.errMess) {
                 return (
-                    <ScrollView style={styles.container}>
-                        <View style={styles.view}>
+                    <ScrollView style={styles.errorContainer}>
+                        <View style={styles.mainErrorView}>
                             <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
-                            <View style={styles.bottomViewRegister}>
+                            <View style={styles.errorView}>
                                 <TouchableOpacity
                                     onPress={() => this.props.resetEmailError()
                                         }
@@ -184,10 +184,10 @@ class Rewards extends Component {
             }
             if (rewards.errMess || newuser.errMess) {
                 return (
-                    <ScrollView style={styles.container}>
-                        <View style={styles.view}>
+                    <ScrollView style={styles.errorContainer}>
+                        <View style={styles.mainErrorView}>
                             <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
-                            <View style={styles.bottomViewRegister}>
+                            <View style={styles.errorView}>
                                 <TouchableOpacity
                                     onPress={() => navigate('Home')}
                                 >
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginHorizontal: '10%'
     },
-    bottomViewRegister: {
+    errorView: {
         width: '70%',
         height: 40,
         backgroundColor: 'yellow',
@@ -315,6 +315,19 @@ const styles = StyleSheet.create({
         fontSize: 16,
         alignItems: 'center',
         paddingLeft: 10
+    },
+    errorContainer: {
+        flex: 1,
+        marginTop: 0,
+        backgroundColor: 'rgb(38,32,0)',
+        paddingVertical: 30
+    },
+    mainErrorView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(38,32,0)',
+        paddingTop: 50
     },
     errorButton: {
         backgroundColor: 'yellow',
