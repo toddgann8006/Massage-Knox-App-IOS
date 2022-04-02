@@ -114,7 +114,7 @@ class Home extends Component {
 
         return (
             <ScrollView style={styles.container}>
-                <View style={styles.welcome}>
+                <View style={styles.mainView}>
                     <View style={styles.imageView}>
                         <Image
                             source={require('./images/logo.png')}
@@ -123,7 +123,7 @@ class Home extends Component {
                             accessibilityLabel='Massage Knox Logo'
                         />
                     </View>
-                    <View style={styles.inputView}>
+                    <View style={styles.textView}>
                         <Text style={styles.welcomeTextHome}>
                             With the Massage Knox By Shannon Cox Rewards App, you will be able to track your sessions with Shannon Cox, Licensed Massage Therapist on a digital stamp card simply by scanning a QR Code during your visit.
                             After accruing a few stamps, you'll receive a discount on the next service. Plus you get a coupon to redeem right away!
@@ -143,11 +143,12 @@ const styles = StyleSheet.create({
         marginTop: 0,
         backgroundColor: 'rgb(38,32,0)'
     },
-    errorContainer: {
+    mainView: {
         flex: 1,
-        marginTop: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: 'rgb(38,32,0)',
-        paddingVertical: 30
+        paddingTop: 50
     },
     image: {
         width: '80%',
@@ -170,15 +171,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(38,32,0)',
         marginTop: 0
     },
-    registerView: {
-        borderColor: 'yellow',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'black',
-        paddingHorizontal: '20%',
-        alignItems: 'center',
-        width: '90%'
-    },
     errorView: {
         width: '70%',
         height: 40,
@@ -192,20 +184,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 50
     },
-    button: {
-        backgroundColor: 'yellow',
-        width: '70%',
-        height: 40,
-        marginTop: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 30,
-        marginBottom: 20
-    },
-    buttonText: {
-        fontSize: 18,
-        color: 'black'
-    },
     welcomeText: {
         color: 'black',
         fontSize: 16
@@ -215,49 +193,37 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingBottom: 10
     },
-    welcome: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
-        paddingTop: 50
-    },
-    modal: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
-        marginTop: 0
-    },
-    modalTextinput: {
-        fontSize: 20,
-        borderWidth: 1,
-        borderStyle: 'solid',
-        marginTop: 30,
-        marginBottom: 15,
-        width: 250,
-        height: 50,
-        backgroundColor: 'white'
-    },
-    inputView: {
-        alignItems: "center",
+    textView: {
         borderColor: 'black',
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'yellow',
-        paddingHorizontal: 10,
         marginVertical: 20,
         paddingTop: 10,
-        marginHorizontal: '5%'
+        paddingHorizontal: '5%',
+        alignItems: 'center',
+        width: '90%'
     },
-    emailError: {
-        color: "red",
-        paddingBottom: 10,
-        fontSize: 16
+    registerView: {
+        borderColor: 'yellow',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        backgroundColor: 'black',
+        paddingHorizontal: '20%',
+        alignItems: 'center',
+        width: '90%'
     },
     text: {
         color: 'yellow',
         fontSize: 17,
         alignItems: 'center',
         paddingLeft: 10
+    },
+    errorContainer: {
+        flex: 1,
+        marginTop: 0,
+        backgroundColor: 'rgb(38,32,0)',
+        paddingVertical: 30
     },
     errorButton: {
         backgroundColor: 'yellow',
@@ -268,6 +234,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 30,
         marginBottom: 20
+    },
+    emailError: {
+        color: "red",
+        paddingBottom: 10,
+        fontSize: 16
     }
 })
 

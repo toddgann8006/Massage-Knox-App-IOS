@@ -108,8 +108,7 @@ export const addNewuser = user => ({
 
 // Sends PUT request to the server to add to newuser reward array and dispatches to addNewUserReward
 
-export const postNewuser = newuser => (dispatch, getState) => {
-    const newUserReward = newuser
+export const postNewuser = () => (dispatch, getState) => {
 
     const { email } = getState().email;
 
@@ -128,7 +127,7 @@ export const postNewuser = newuser => (dispatch, getState) => {
             error => { throw error; }
         )
         .then(response => response.json())
-        .then(dispatch(addNewuserReward(newUserReward)))
+        .then(user => dispatch(addNewuser(user.newuser)))
         .catch(error => dispatch(rewardsFailed(error.message)))
 };
 
@@ -182,10 +181,9 @@ export const addRewards = reward => ({
     payload: reward
 });
 
-// Sends PUT request to the server to add to rewards array and dispatches to addReward
+// Sends PUT request to the server to add to rewards array and dispatches to addRewards
 
-export const postReward = reward => (dispatch, getState) => {
-    const newReward = reward
+export const postReward = () => (dispatch, getState) => {
 
     const { email } = getState().email;
 
@@ -204,16 +202,9 @@ export const postReward = reward => (dispatch, getState) => {
             error => { throw error; }
         )
         .then(response => response.json())
-        .then(dispatch(addReward(newReward)))
+        .then(reward => dispatch(addRewards(reward.rewards)))
         .catch(error => dispatch(userFailed(error.message)))
 };
-
-// Takes dispatch from postReward and adds it to the rewards array in rewards reducer
-
-export const addReward = reward => ({
-    type: ActionTypes.ADD_REWARD,
-    payload: reward
-});
 
 //Sends a delete request to the server to set the rewards array to empty and sends a dispatch to resetReward
 
@@ -269,11 +260,15 @@ export const modalOff = () => ({
     type: ActionTypes.MODAL_OFF
 });
 
+// Sends dispatch to resetEmailErr to reset the error message in email reducer if there is a 500 error
+
 export const resetEmailError= () => dispatch => {
     setTimeout(() => {
         dispatch(resetEmailErr());
     }, 2000);
 };
+
+// Receives dispatch to reset the error message in email reducer if there is a 500 error
 
 export const resetEmailErr = () => ({
     type: ActionTypes.RESET_EMAIL_ERROR

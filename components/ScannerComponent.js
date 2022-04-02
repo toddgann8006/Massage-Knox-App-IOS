@@ -16,17 +16,15 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    postReward: (reward) => (postReward(reward)),
+    postReward: () => (postReward()),
     postReset: () => (postReset()),
-    postNewuser: (newuser) => (postNewuser(newuser))
+    postNewuser: () => (postNewuser())
 };
 
 class Scanner extends Component {
     state = {
         hasCameraPermission: false,
-        scanned: false,
-        reward: 'heart',
-        newuser: 'heart'
+        scanned: false
     };
 
     // Checks if user has given permission to use the camera and waits for a response 
@@ -45,8 +43,7 @@ class Scanner extends Component {
     // After scanning QR code, this redeems initial reward and adds reward to the newuser array in newuser reducer
 
     handleNewuser() {
-        const newuser = this.state.newuser
-        this.props.postNewuser(newuser)
+        this.props.postNewuser()
         Alert.alert(
             'Thanks for downloading the app!',
             'Enjoy 20% off your first service!',
@@ -63,8 +60,7 @@ class Scanner extends Component {
     // This adds reward to rewards array in rewards reducer after scanning QR code.
 
     handleReward() {
-        const reward = this.state.reward
-        this.props.postReward(reward)
+        this.props.postReward()
         Alert.alert(
             'Congratulations',
             'You earned a stamp!',

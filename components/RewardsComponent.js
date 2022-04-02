@@ -204,8 +204,8 @@ class Rewards extends Component {
 
         return (
             <ScrollView style={styles.container}>
-                <View style={styles.view}>
-                    <View style={styles.imageContainer}>
+                <View style={styles.mainView}>
+                    <View style={styles.imageView}>
                         <Image
                             source={require('./images/logo.png')}
                             resizeMode='contain'
@@ -240,25 +240,19 @@ const styles = StyleSheet.create({
         paddingVertical: 30,
         backgroundColor: 'rgb(38,32,0)'
     },
-    view: {
+    mainView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgb(38,32,0)',
         marginTop: 0
     },
-    icon: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 30,
-        marginBottom: 60
-    },
     image: {
         width: '80%',
         height: undefined,
         aspectRatio: 1
     },
-    imageContainer: {
+    imageView: {
         borderColor: 'yellow',
         borderStyle: 'solid',
         borderWidth: 2,
@@ -266,6 +260,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: '20%',
         alignItems: 'center',
         width: '90%'
+    },
+    icon: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 30,
+        marginBottom: 60
     },
     button: {
         backgroundColor: 'yellow',
@@ -300,19 +300,19 @@ const styles = StyleSheet.create({
         marginTop: 50
     },
     textContainer: {
-        alignItems: "center",
         borderColor: 'yellow',
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        paddingHorizontal: 10,
         marginVertical: 20,
         paddingVertical: 10,
-        marginHorizontal: '5%'
+        paddingHorizontal: '5%',
+        alignItems: 'center',
+        width: '90%'
     },
     text: {
         color: 'yellow',
-        fontSize: 17,
+        fontSize: 16,
         alignItems: 'center',
         paddingLeft: 10
     },

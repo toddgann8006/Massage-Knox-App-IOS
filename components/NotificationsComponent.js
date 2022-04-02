@@ -14,12 +14,6 @@ class Notifications extends Component {
         this.getNotifications();
     };
 
-    componentDidUpdate(prevState) {
-        if (this.state.notifications !== prevState.notifications) {
-            this.getNotifications();
-        }
-    };
-
     // Gets all unopened notifications for the app from the Notification center and adds then to notifications array in state
 
     getNotifications(){

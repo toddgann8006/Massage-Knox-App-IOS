@@ -49,8 +49,7 @@ const HomeNavigator = createStackNavigator(
 const RewardsNavigator = createStackNavigator(
     {
         Rewards: { screen: Rewards },
-        Scanner: { screen: Scanner },
-        Register: { screen: Register }
+        Scanner: { screen: Scanner }
     },
     {
         initialRouteName: 'Rewards',
@@ -87,11 +86,11 @@ const NotificationsNavigator = createStackNavigator(
 const MoreNavigator = createStackNavigator(
     {
         More: { screen: More},
-        Register: { screen: Register },
         Contact: { screen: Contact },
         Services: { screen: Services },
         Giftcards: { screen: Giftcards },
-        Appointments: { screen: Appointments }
+        Appointments: { screen: Appointments },
+        Register: { screen: Register }
     },
     {
         initialRouteName: 'More',
