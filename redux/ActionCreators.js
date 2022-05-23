@@ -131,13 +131,6 @@ export const postNewuser = () => (dispatch, getState) => {
         .catch(error => dispatch(rewardsFailed(error.message)))
 };
 
-// Takes dispatch from postNewuser and adds to newuser array in newuser reducer
-
-export const addNewuserReward = newuser => ({
-    type: ActionTypes.ADD_NEWUSER_REWARD,
-    payload: newuser
-});
-
 export const newuserLoading = () => ({
     type: ActionTypes.NEWUSER_LOADING
 });

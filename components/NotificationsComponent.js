@@ -57,7 +57,9 @@ class Notifications extends Component {
                     </Text>
                     </View>
                 <View style={styles.notificationsContainer}>
-                    <Text style={styles.notificationsText}>No New Notifications</Text>
+                    <Text style={styles.notificationsText}
+                    adjustsFontSizeToFit
+                    >No New Notifications</Text>
                 </View>
                 </ScrollView>
             )
@@ -92,7 +94,9 @@ class Notifications extends Component {
                                 );
                             }}
                         >
-                            <Text style={styles.buttonText}>
+                            <Text style={styles.buttonText}
+                            adjustsFontSizeToFit
+                            >
                                 Delete Notifications
                             </Text>
                         </TouchableOpacity>
@@ -111,12 +115,12 @@ const styles = StyleSheet.create({
         header: {
             fontSize: 40,
             color: 'yellow',
-            marginTop: 30
+            marginTop: '5%'
         },
         headerContainer: {
             backgroundColor: 'black',
             alignItems: 'center',
-            marginBottom: 20
+            marginBottom: '4%'
         },
         notificationsText: {
             fontSize: 20,
@@ -129,9 +133,9 @@ const styles = StyleSheet.create({
             borderStyle: 'solid',
             borderColor: 'yellow',
             borderWidth: 2,
-            marginBottom: 15,
+            marginBottom: '3%',
             marginHorizontal: '2%',
-            paddingHorizontal: 5
+            paddingHorizontal: '2%'
         },
         registerView: {
             borderColor: 'yellow',
@@ -147,11 +151,11 @@ const styles = StyleSheet.create({
             backgroundColor: 'yellow',
             width: '80%',
             height: 40,
-            marginTop: 25,
+            marginTop: '5%',
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 30,
-            marginBottom: 20
+            marginBottom: '5%'
         },
         buttonText: {
             fontSize: 18,

@@ -21,19 +21,19 @@ class Giftcards extends Component {
                         <Text style={styles.smallheader}>
                             Massage prices are as follows:
                         </Text>
-                        <Text style={styles.body}>
+                        <Text style={styles.price}>
                             30 minutes: $45
                         </Text>
-                        <Text style={styles.body}>
+                        <Text style={styles.price}>
                             45 minutes: $55
                         </Text>
-                        <Text style={styles.body}>
+                        <Text style={styles.price}>
                             60 minutes: $65
                         </Text>
-                        <Text style={styles.body}>
+                        <Text style={styles.price}>
                             90 minutes: $90
                         </Text>
-                        <Text style={styles.body}>
+                        <Text style={styles.price}>
                             120 minutes: $130
                         </Text>
                     </View>
@@ -45,7 +45,9 @@ class Giftcards extends Component {
                             onPress={() => Linking.openURL('https://squareup.com/gift/4CSXHA6RBTHT0/order')}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}>Purchase</Text>
+                            <Text style={styles.buttonText}
+                            adjustsFontSizeToFit
+                            >Purchase</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.registerView}>
@@ -56,7 +58,9 @@ class Giftcards extends Component {
                             onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}>Email</Text>
+                            <Text style={styles.buttonText}
+                            adjustsFontSizeToFit
+                            >Email</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -74,77 +78,74 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 40,
         color: 'yellow',
-        marginTop: 30
+        marginTop: '5%'
     },
     headerContainer: {
         backgroundColor: 'black',
         alignItems: 'center',
-        marginBottom: 20,
-        paddingBottom: 10
+        marginBottom: '5%',
+        paddingBottom: '5%'
     },
     view: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgb(38,32,0)',
         marginTop: 0,
-        marginBottom: 30,
+        marginBottom: '5%',
         paddingHorizontal: '3%'
     },
     textContainer: {
-        alignItems: "center",
+        alignItems: "flex-start",
         borderColor: 'yellow',
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        paddingHorizontal: '10%',
-        marginVertical: 20,
-        paddingVertical: 10,
-        marginHorizontal: '5%'
+        paddingHorizontal: '5%',
+        marginTop: '7%',
+        paddingVertical: '5%',
+        marginHorizontal: '5%',
+        width: '90%'
     },
     registerView: {
         borderColor: 'yellow',
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        paddingHorizontal: '20%',
+        paddingHorizontal: '5%',
         alignItems: 'center',
         width: '90%',
-        marginTop: 20
-    },
-    yellowtext: {
-        fontSize: 30,
-        color: 'yellow',
-        marginTop: 30,
-        paddingLeft: 30
+        marginTop: '7%'
     },
     smallheader: {
         fontSize: 25,
         color: 'yellow',
-        marginTop: 30,
-        paddingLeft: 30
+        marginTop: '5%',
+        paddingLeft: '5%'
     },
     body: {
-        color: 'white',
-        marginTop: 20,
+        color: 'yellow',
+        marginTop: '5%',
         fontSize: 18,
         lineHeight: 30,
-        paddingLeft: 30
+        paddingLeft: '5%'
     },
-    centertext: {
-        textAlign: 'center',
+    price: {
+        color: 'white',
+        marginTop: '5%',
         fontSize: 18,
-        color: 'white'
+        lineHeight: 30,
+        paddingLeft: '5%'
     },
     button: {
         backgroundColor: 'yellow',
         color: 'black',
         width: '70%',
         height: 40,
-        marginTop: 25,
+        marginTop: '5%',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,
-        marginBottom: 10
+        marginBottom: '5%'
     },
     buttonText: {
         fontSize: 18,

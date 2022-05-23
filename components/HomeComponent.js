@@ -2,61 +2,40 @@ import React, { Component } from "react";
 import { ScrollView, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { withNavigationFocus } from 'react-navigation';
+import { fetchNewuser, fetchRewards } from '../redux/ActionCreators';
 import Loading from "./LoadingComponent";
-import { resetEmailError, fetchNewuser, fetchRewards} from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
         email: state.email,
-        newuser: state.newuser,
-        modal: state.modal,
-        rewards: state.rewards
+        rewards: state.rewards,
+        newuser: state.newuser
     };
 };
 
 const mapDispatchToProps = {
-    fetchNewuser: () => (fetchNewuser()),
-    fetchRewards: () => (fetchRewards()),
-    resetEmailError: () => (resetEmailError())
+    fetchNewuser,
+    fetchRewards
 };
 
+
 class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            validEmail: false,
-            emailError: ""
-        }
-    }
 
-    componentDidMount() {
+    componentDidMount(props) {
         const email = this.props.email.email
-        if (email.length > 0) {
+        if (email.length) {
             this.props.fetchNewuser();
             this.props.fetchRewards();
         };
     };
-
-    componentDidUpdate(prevProps) {
-        if (this.props.email !== prevProps.email) {
-            this.props.fetchNewuser();
-            this.props.fetchRewards();
-        };
-    };
-
-    resetError() {
-        const {navigate} = this.props.navigation
-        this.props.resetEmailError();
-        navigate('Rewards');
-    }
 
     render() {
-        const newuser = this.props.newuser
-        const email = this.props.email
-        const rewards = this.props.rewards
+
+        const newuser = this.props.newuser;
+        const email = this.props.email;
+        const rewards = this.props.rewards;
         const { navigate } = this.props.navigation;
+        const err500 = "Error 500: ";
         let errMessage
         if (email.errMess) {
             errMessage = email.errMess
@@ -66,50 +45,58 @@ class Home extends Component {
             errMessage = newuser.errMess
         }
 
-        if (email.isLoading || rewards.isLoading || newuser.isLoading) {
-            return (
-                <Loading />
-            );
+        if (email.email.length) {
+            if (email.isLoading || rewards.isLoading || newuser.isLoading) {
+                return (
+                    <Loading />
+                );
+            };
         };
 
         if (email.email.length > 0) {
             if (email.errMess) {
-                return (
-                    <ScrollView style={styles.errorContainer}>
-                        <View style={styles.mainView}>
-                            <Text style={styles.errorText}>Sorry, there was an error. {errMessage}</Text>
-                            <View style={styles.errorView}>
-                                <TouchableOpacity
-                                    onPress={() => this.resetError()
-                                        }
-                                >
-                                    <Text>
-                                        Go Back
-                                    </Text>
-                                </TouchableOpacity>
+                if (email.errMess !== err500) {
+                    return (
+                        <ScrollView style={styles.errorContainer}>
+                            <View style={styles.mainErrorView}>
+                                <Text style={styles.errorText}>Sorry, there was an error. {errMessage}</Text>
+                                <View style={styles.errorView}>
+                                    <TouchableOpacity
+                                        onPress={() => navigate('Rewards')}
+                                    >
+                                        <Text
+                                        adjustsFontSizeToFit
+                                        >
+                                            Go Back
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                        </View>
-                    </ScrollView>
-                )
+                        </ScrollView>
+                    )
+                }
             }
-            if (rewards.errMess || newuser.errMess) {
-                return (
-                    <ScrollView style={styles.errorContainer}>
-                        <View style={styles.mainView}>
-                            <Text style={styles.errorText}>Sorry, there was an error. {errMessage}</Text>
-                            <View style={styles.errorView}>
-                                <TouchableOpacity
-                                    onPress={() => navigate('Rewards')}
+        };
+
+        if (rewards.errMess || newuser.errMess) {
+            return (
+                <ScrollView style={styles.errorContainer}>
+                    <View style={styles.mainErrorView}>
+                        <Text style={styles.errorText}>Sorry, there was an error. {errMessage}</Text>
+                        <View style={styles.errorView}>
+                            <TouchableOpacity
+                                onPress={() => navigate('Rewards')}
+                            >
+                                <Text
+                                adjustsFontSizeToFit
                                 >
-                                    <Text>
-                                        Go Back
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
+                                    Go Back
+                                </Text>
+                            </TouchableOpacity>
                         </View>
-                    </ScrollView>
-                )
-            };
+                    </View>
+                </ScrollView>
+            )
         };
 
         return (
@@ -148,7 +135,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgb(38,32,0)',
-        paddingTop: 50
+        paddingTop: '5%'
     },
     image: {
         width: '80%',
@@ -164,38 +151,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '90%'
     },
-    errorView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
-        marginTop: 0
-    },
-    errorView: {
-        width: '70%',
-        height: 40,
-        backgroundColor: 'yellow',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        marginBottom: 50,
-        color: 'black',
-        borderRadius: 10,
-        paddingBottom: 10,
-        fontWeight: 'bold',
-        marginTop: 50
-    },
     text: {
         color: 'black',
         fontSize: 16,
-        paddingBottom: 10
+        paddingBottom: '2%'
     },
     textView: {
         borderColor: 'black',
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'yellow',
-        marginVertical: 20,
-        paddingTop: 10,
+        marginVertical: '5%',
+        paddingVertical: '3%',
         paddingHorizontal: '5%',
         alignItems: 'center',
         width: '90%'
@@ -204,29 +171,41 @@ const styles = StyleSheet.create({
         color: 'yellow',
         fontSize: 16,
         alignItems: 'center',
-        paddingLeft: 10
+        paddingLeft: '2%'
     },
     errorContainer: {
         flex: 1,
         marginTop: 0,
-        backgroundColor: 'rgb(38,32,0)',
-        paddingVertical: 30
+        backgroundColor: 'rgb(38,32,0)'
     },
     errorButton: {
         backgroundColor: 'yellow',
         width: '70%',
         height: 40,
-        marginTop: 25,
+        marginVertical: '5%',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,
-        marginBottom: 20
     },
-    emailError: {
-        color: "red",
-        paddingBottom: 10,
-        fontSize: 16
-    }
+    mainErrorView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(38,32,0)',
+        paddingTop: '10%'
+    },
+    errorView: {
+        width: '70%',
+        height: 40,
+        backgroundColor: 'yellow',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: '5%',
+        color: 'black',
+        borderRadius: 10,
+        fontWeight: 'bold',
+        marginTop: '5%'
+    },
 })
 
-export default withNavigationFocus(connect(mapStateToProps, mapDispatchToProps)(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

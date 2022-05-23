@@ -46,6 +46,8 @@ class Register extends Component {
         this.props.toggleModalOff();
     };
 
+    // Sends email to server again if error occured
+
     resetNewuser() {
         const email = this.props.email.email
         this.props.postUser(email);
@@ -82,11 +84,7 @@ class Register extends Component {
         const rewards = this.props.rewards;
         const newuser = this.props.newuser;
         let registerScreen
-        if (email.isLoading || rewards.isLoading || newuser.isLoading) {
-            return (
-                <Loading />
-            );
-        }
+
         if (modal === true) {
             registerScreen =
                 <View style={styles.modal}>
@@ -141,7 +139,9 @@ class Register extends Component {
                                 );
                             }}
                         >
-                            <Text style={styles.buttonText}>
+                            <Text style={styles.buttonText}
+                                adjustsFontSizeToFit
+                            >
                                 Register
                             </Text>
                         </TouchableOpacity>
@@ -169,7 +169,9 @@ class Register extends Component {
                             style={styles.button}
                             onPress={() => this.resetNewuser()}
                         >
-                            <Text style={styles.buttonText}>
+                            <Text style={styles.buttonText}
+                                adjustsFontSizeToFit
+                            >
                                 Reset Email
                             </Text>
                         </TouchableOpacity>
@@ -220,11 +222,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'yellow',
         width: '70%',
         height: 40,
-        marginTop: 25,
+        marginTop: '5%',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,
-        marginBottom: 20
+        marginBottom: '5%'
     },
     buttonText: {
         fontSize: 18,
@@ -237,13 +239,13 @@ const styles = StyleSheet.create({
     welcomeTextHome: {
         color: 'black',
         fontSize: 16,
-        paddingBottom: 10
+        paddingBottom: '3%'
     },
     welcome: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgb(38,32,0)',
-        paddingTop: 50
+        paddingTop: '5%'
     },
     modal: {
         justifyContent: 'center',
@@ -255,8 +257,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         borderWidth: 1,
         borderStyle: 'solid',
-        marginTop: 30,
-        marginBottom: 15,
+        marginTop: '5%',
+        marginBottom: '1%',
         width: 250,
         height: 50,
         backgroundColor: 'white'
@@ -267,16 +269,17 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'yellow',
-        paddingHorizontal: 10,
-        marginVertical: 20,
-        paddingTop: 10,
-        marginHorizontal: '5%'
+        paddingHorizontal: '3%',
+        marginVertical: '4%',
+        paddingTop: '3%',
+        marginHorizontal: '5%',
+        width: '90%'
     },
     emailError: {
         color: "red",
-        paddingBottom: 10,
+        paddingBottom: '5%',
         fontSize: 16
     }
-})
+});
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Register);

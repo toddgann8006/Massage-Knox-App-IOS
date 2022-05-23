@@ -18,7 +18,7 @@ class Appointments extends Component {
                         </Text>
                     </View>
                     <View style={styles.textContainer}>
-                        <Text style={styles.yellowtext}>
+                        <Text style={styles.body}>
                             ***Please be advised, I cannot accept Nourish Skin Studio's online gift cards, birthday or in-app rewards. If you have an e-gift card, reward or other discount, please confirm that it is from Massage Knox. And check the website and facebook for any current promotions.***
                         </Text>
                     </View>
@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        paddingHorizontal: '10%',
-        marginVertical: 20,
-        paddingVertical: 10,
+        paddingHorizontal: '5%',
+        marginVertical: '3%',
+        paddingVertical: '2%',
         marginHorizontal: '5%'
     },
     header: {
@@ -96,23 +96,16 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        paddingHorizontal: '20%',
+        paddingHorizontal: '5%',
         alignItems: 'center',
         width: '90%',
         marginTop: 20
     },
-    yellowtext: {
-        fontSize: 30,
-        color: 'yellow',
-        marginTop: 30,
-        paddingLeft: 30
-    },
     body: {
         color: 'yellow',
-        marginTop: 20,
+        marginTop: '3%',
         fontSize: 18,
         lineHeight: 30,
-        paddingHorizontal: 5
     },
     centertext: {
         textAlign: 'center',
@@ -134,6 +127,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'black'
     }
-});
+})
 
 export default Appointments;

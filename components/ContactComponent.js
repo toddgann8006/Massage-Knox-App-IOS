@@ -26,7 +26,9 @@ class Contact extends Component {
                             onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}>Email</Text>
+                            <Text style={styles.buttonText}
+                                adjustsFontSizeToFit
+                            >Email</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.textView}>
@@ -49,7 +51,9 @@ class Contact extends Component {
                             })}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}>Find Me On Facebook</Text>
+                            <Text style={styles.buttonText}
+                                adjustsFontSizeToFit
+                            >Find Me On Facebook</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -69,12 +73,12 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        paddingHorizontal: 20,
+        paddingHorizontal: '5%',
         alignItems: 'center',
-        marginTop: 20,
-        paddingTop: 15,
+        marginTop: '3%',
+        paddingTop: '4%',
         width: '100%',
-        marginBottom: 40
+        marginBottom: '5%'
     },
     image: {
         width: '70%',
@@ -84,37 +88,38 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 40,
         color: 'yellow',
-        marginTop: 30
+        marginTop: '2%'
     },
     headerContainer: {
         backgroundColor: 'black',
         alignItems: 'center',
-        marginBottom: 20,
-        paddingBottom: 10
+        marginBottom: '3%',
+        paddingBottom: '2%'
     },
     text: {
         color: 'yellow',
         fontSize: 17,
-        marginVertical: 10
+        marginVertical: '2%'
     },
     text2: {
         color: 'yellow',
         fontSize: 17,
-        marginBottom: 10
+        marginBottom: '2%'
     },
     text3: {
         color: 'yellow',
-        fontSize: 17
+        fontSize: 17,
+        marginBottom: '1%'
     },
     button: {
         backgroundColor: 'yellow',
         width: '70%',
         height: 40,
-        marginTop: 25,
+        marginTop: '5%',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,
-        marginBottom: 20
+        marginBottom: '3%'
     },
     buttonText: {
         fontSize: 18,
@@ -124,7 +129,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgb(38,32,0)',
-        marginTop: 10,
+        marginTop: '1%',
         paddingHorizontal: '3%'
     },
     textView: {
@@ -133,11 +138,11 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         backgroundColor: 'black',
         alignItems: 'center',
-        padding: 10,
+        padding: '2%',
         width: '100%',
-        marginTop: 10,
-        marginBottom: 20
+        marginTop: '2%',
+        marginBottom: '3%'
     }
-});
+})
 
 export default Contact;

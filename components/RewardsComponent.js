@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { withNavigationFocus } from 'react-navigation';
 import Loading from './LoadingComponent';
-import { resetEmailError,fetchNewuser, fetchRewards } from '../redux/ActionCreators';
+import { resetEmailError, fetchNewuser, fetchRewards } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -69,11 +69,13 @@ function RenderButton(props) {
 
     if (email === "") {
         return (
-            <View style={styles.bottomViewRegister}>
+            <View style={styles.bottomView}>
                 <TouchableOpacity
                     onPress={() => navigate('Register')}
                 >
-                    <Text style={styles.button}>
+                    <Text style={styles.button}
+                        adjustsFontSizeToFit
+                    >
                         Register
                     </Text>
                 </TouchableOpacity>
@@ -88,7 +90,9 @@ function RenderButton(props) {
                 <TouchableOpacity
                     onPress={() => navigate('Scanner')}
                 >
-                    <Text style={styles.button}>Redeem Reward</Text>
+                    <Text style={styles.button}
+                        adjustsFontSizeToFit
+                    >Redeem Reward</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -101,7 +105,9 @@ function RenderButton(props) {
                 <TouchableOpacity
                     onPress={() => navigate('Scanner')}
                 >
-                    <Text style={styles.button}>Stamp Card</Text>
+                    <Text style={styles.button}
+                        adjustsFontSizeToFit
+                    >Stamp Card</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -115,8 +121,8 @@ class Rewards extends Component {
 
     // Fetch Newuser and Rewards array from server when component is focused. 
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.isFocused !== this.props.isFocused) {
+    componentDidUpdate(prevProps, props) {
+        if (this.props.email.email.length && prevProps.isFocused !== this.props.isFocused) {
             this.props.fetchNewuser();
             this.props.fetchRewards();
         };
@@ -127,10 +133,11 @@ class Rewards extends Component {
     }
 
     render() {
-        const newuser = this.props.newuser
-        const email = this.props.email
-        const rewards = this.props.rewards
+        const newuser = this.props.newuser;
+        const email = this.props.email;
+        const rewards = this.props.rewards;
         const { navigate } = this.props.navigation;
+        const err500 = "Error 500: ";
         let errMessage
         if (email.errMess) {
             errMessage = email.errMess
@@ -156,54 +163,59 @@ class Rewards extends Component {
             );
         });
 
-        if (email.isLoading || rewards.isLoading || newuser.isLoading) {
-            return (
-                <Loading />
-            );
+        if (email.email.length) {
+            if (email.isLoading || rewards.isLoading || newuser.isLoading) {
+                return (
+                    <Loading />
+                );
+            };
         };
 
         if (email.email.length > 0) {
             if (email.errMess) {
-                return (
-                    <ScrollView style={styles.errorContainer}>
-                        <View style={styles.mainErrorView}>
-                            <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
-                            <View style={styles.errorView}>
-                                <TouchableOpacity
-                                    onPress={() => this.props.resetEmailError()
+                if (email.errMess !== err500) {
+                    return (
+                        <ScrollView style={styles.errorContainer}>
+                            <View style={styles.mainErrorView}>
+                                <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                                <View style={styles.errorView}>
+                                    <TouchableOpacity
+                                        onPress={() => this.props.resetEmailError()
                                         }
-                                >
-                                    <Text>
-                                        Go Back
-                                    </Text>
-                                </TouchableOpacity>
+                                    >
+                                        <Text>
+                                            Go Back
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                        </View>
-                    </ScrollView>
-                )
+                        </ScrollView>
+                    )
+                }
             }
-            if (rewards.errMess || newuser.errMess) {
-                return (
-                    <ScrollView style={styles.errorContainer}>
-                        <View style={styles.mainErrorView}>
-                            <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
-                            <View style={styles.errorView}>
-                                <TouchableOpacity
-                                    onPress={() => navigate('Home')}
-                                >
-                                    <Text>
-                                        Go Back
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
+        };
+
+        if (rewards.errMess || newuser.errMess) {
+            return (
+                <ScrollView style={styles.errorContainer}>
+                    <View style={styles.mainErrorView}>
+                        <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                        <View style={styles.errorView}>
+                            <TouchableOpacity
+                                onPress={() => navigate('Home')}
+                            >
+                                <Text>
+                                    Go Back
+                                </Text>
+                            </TouchableOpacity>
                         </View>
-                    </ScrollView>
-                )
-            };
+                    </View>
+                </ScrollView>
+            )
         };
 
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container} >
                 <View style={styles.mainView}>
                     <View style={styles.imageView}>
                         <Image
@@ -237,7 +249,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 0,
-        paddingVertical: 30,
+        paddingVertical: '5%',
         backgroundColor: 'rgb(38,32,0)'
     },
     mainView: {
@@ -264,8 +276,8 @@ const styles = StyleSheet.create({
     icon: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 30,
-        marginBottom: 60
+        marginTop: '5%',
+        marginBottom: '5%'
     },
     button: {
         backgroundColor: 'yellow',
@@ -274,15 +286,14 @@ const styles = StyleSheet.create({
     },
     bottomView: {
         flex: 1,
-        width: '90%',
+        width: '80%',
         height: 40,
         backgroundColor: 'yellow',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 50,
+        marginBottom: '5%',
         color: 'black',
         borderRadius: 10,
-        paddingBottom: 10,
         fontWeight: 'bold',
         marginHorizontal: '10%'
     },
@@ -290,23 +301,22 @@ const styles = StyleSheet.create({
         width: '70%',
         height: 40,
         backgroundColor: 'yellow',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 50,
+        marginBottom: '5%',
         color: 'black',
         borderRadius: 10,
-        paddingBottom: 10,
         fontWeight: 'bold',
-        marginTop: 50
+        marginTop: '5%'
     },
     textContainer: {
         borderColor: 'yellow',
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        marginVertical: 20,
-        paddingVertical: 10,
-        paddingHorizontal: '5%',
+        marginVertical: '4%',
+        paddingVertical: '3%',
+        paddingHorizontal: '4%',
         alignItems: 'center',
         width: '90%'
     },
@@ -314,20 +324,19 @@ const styles = StyleSheet.create({
         color: 'yellow',
         fontSize: 16,
         alignItems: 'center',
-        paddingLeft: 10
+        paddingLeft: '2%'
     },
     errorContainer: {
         flex: 1,
         marginTop: 0,
-        backgroundColor: 'rgb(38,32,0)',
-        paddingVertical: 30
+        backgroundColor: 'rgb(38,32,0)'
     },
     mainErrorView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgb(38,32,0)',
-        paddingTop: 50
+        paddingTop: '10%'
     },
     errorButton: {
         backgroundColor: 'yellow',

@@ -128,24 +128,24 @@ class Scanner extends Component {
             return <Text>No access to camera</Text>;
         }
 
-            if (rewards.errMess || newuser.errMess) {
-                return (
-                    <ScrollView style={styles.errorContainer}>
-                        <View style={styles.mainErrorView}>
-                            <Text style={styles.errorText}>Sorry, there was an error. {errMessage}</Text>
-                            <View style={styles.goBack}>
-                                <TouchableOpacity
-                                    onPress={() => navigate('Rewards')}
-                                >
-                                    <Text>
-                                        Go Back
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
+        if (rewards.errMess || newuser.errMess) {
+            return (
+                <ScrollView style={styles.errorContainer}>
+                    <View style={styles.mainErrorView}>
+                        <Text style={styles.errorText}>Sorry, there was an error. {errMessage}</Text>
+                        <View style={styles.goBack}>
+                            <TouchableOpacity
+                                onPress={() => navigate('Rewards')}
+                            >
+                                <Text>
+                                    Go Back
+                                </Text>
+                            </TouchableOpacity>
                         </View>
-                    </ScrollView>
-                )
-            };
+                    </View>
+                </ScrollView>
+            )
+        };
 
         return (
             <SafeAreaView style={styles.container}>
