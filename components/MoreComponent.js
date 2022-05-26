@@ -21,6 +21,18 @@ class More extends Component {
                 </View>
                 <View style={styles.registerView}>
                     <TouchableOpacity
+                        onPress={() => navigate('Appointments')}
+                        style={styles.button}
+                    >
+                        <Text style={styles.buttonText}
+                            adjustsFontSizeToFit
+                        >
+                            Appointments
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.registerView}>
+                    <TouchableOpacity
                         onPress={() => navigate('Contact')}
                         style={styles.button}
                     >

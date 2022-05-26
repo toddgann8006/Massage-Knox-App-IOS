@@ -87,7 +87,7 @@ class Register extends Component {
 
         if (modal === true) {
             registerScreen =
-                <View style={styles.modal}>
+                <View style={styles.welcome}>
                     <View style={styles.imageView}>
                         <Image
                             source={require('./images/logo.png')}
@@ -246,12 +246,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgb(38,32,0)',
         paddingTop: '5%'
-    },
-    modal: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
-        marginTop: 0
     },
     modalTextinput: {
         fontSize: 20,
