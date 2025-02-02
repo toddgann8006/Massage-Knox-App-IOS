@@ -83,6 +83,9 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
 
 // Rest of your existing notification methods stay the same
+- (void)messaging:(FIRMessaging *)messaging didReceiveRegistrationToken:(NSString *)fcmToken {
+    NSLog(@"FCM registration token: %@", fcmToken);
+}
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
