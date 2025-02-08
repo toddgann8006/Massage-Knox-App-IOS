@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, Image, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { withNavigationFocus } from 'react-navigation';
+import { useIsFocused } from '@react-navigation/native';
 import Loading from './LoadingComponent';
 import { resetEmailError, fetchNewuser, fetchRewards } from '../redux/ActionCreators';
 
@@ -42,7 +42,7 @@ function RenderText(props) {
         return (
             <View style={styles.textContainer}>
                 <Text style={styles.text}>
-                    Thanks for downloading the app. Enjoy 20% off of your visit today.
+                    Thanks for downloading the app. Enjoy 10% off of your visit today.
                 </Text>
             </View>
         );
@@ -114,136 +114,120 @@ function RenderButton(props) {
     };
 };
 
-class Rewards extends Component {
-    constructor(props) {
-        super(props);
-    }
+function Rewards(props) {
+    const isFocused = useIsFocused();
 
-    // Fetch Newuser and Rewards array from server when component is focused. 
+    useEffect(() => {
+        if (props.email.email.length && isFocused) {
+            props.fetchNewuser();
+            props.fetchRewards();
+        }
+    }, [isFocused, props.email.email]);
 
-    componentDidUpdate(prevProps, props) {
-        if (this.props.email.email.length && prevProps.isFocused !== this.props.isFocused) {
-            this.props.fetchNewuser();
-            this.props.fetchRewards();
-        };
+    const resetError = () => {
+        props.resetEmailError();
     };
 
-    resetError() {
-        this.props.resetEmailError();
+    const newuser = props.newuser;
+    const email = props.email;
+    const rewards = props.rewards;
+    const { navigate } = props.navigation;
+    const err500 = "Error 500: ";
+    let errMessage;
+
+    if (email.errMess) {
+        errMessage = email.errMess;
+    }
+    if (rewards.errMess) {
+        errMessage = rewards.errMess;
+    }
+    if (newuser.errMess) {
+        errMessage = newuser.errMess;
     }
 
-    render() {
-        const newuser = this.props.newuser;
-        const email = this.props.email;
-        const rewards = this.props.rewards;
-        const { navigate } = this.props.navigation;
-        const err500 = "Error 500: ";
-        let errMessage
-        if (email.errMess) {
-            errMessage = email.errMess
-        } if (rewards.errMess) {
-            errMessage = rewards.errMess
-        } if (newuser.errMess) {
-            errMessage = newuser.errMess
-        }
-
-        // Maps over all the rewards in the rewards array, received as props from rewards reducer, and displays a heart icon for each one. This lets user know how many rewards they currently have.
-
-        const reward = this.props.rewards.rewards.map((reward, i) => {
-            return (
-                <Icon
-                    name={reward}
-                    type='font-awesome'
-                    color='#FFFF00'
-                    raised
-                    reverse
-                    key={i}
-                    size={14}
-                />
-            );
-        });
-
-        if (email.email.length) {
-            if (email.isLoading || rewards.isLoading || newuser.isLoading) {
-                return (
-                    <Loading />
-                );
-            };
-        };
-
-        if (email.email.length > 0) {
-            if (email.errMess) {
-                if (email.errMess !== err500) {
-                    return (
-                        <ScrollView style={styles.errorContainer}>
-                            <View style={styles.mainErrorView}>
-                                <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
-                                <View style={styles.errorView}>
-                                    <TouchableOpacity
-                                        onPress={() => this.props.resetEmailError()
-                                        }
-                                    >
-                                        <Text>
-                                            Go Back
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </ScrollView>
-                    )
-                }
-            }
-        };
-
-        if (rewards.errMess || newuser.errMess) {
-            return (
-                <ScrollView style={styles.errorContainer}>
-                    <View style={styles.mainErrorView}>
-                        <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
-                        <View style={styles.errorView}>
-                            <TouchableOpacity
-                                onPress={() => navigate('Home')}
-                            >
-                                <Text>
-                                    Go Back
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </ScrollView>
-            )
-        };
-
+    const reward = props.rewards.rewards.map((reward, i) => {
         return (
-            <ScrollView style={styles.container} >
-                <View style={styles.mainView}>
-                    <View style={styles.imageView}>
-                        <Image
-                            source={require('./images/logo.png')}
-                            resizeMode='contain'
-                            accessibilityLabel='Massage Knox Logo'
-                            style={styles.image} />
+            <Icon
+                name={reward}
+                type='font-awesome'
+                color='#FFFF00'
+                raised
+                reverse
+                key={i}
+                size={14}
+            />
+        );
+    });
+
+    if (email.email.length) {
+        if (email.isLoading || rewards.isLoading || newuser.isLoading) {
+            return <Loading />;
+        }
+    }
+
+    if (email.email.length > 0) {
+        if (email.errMess) {
+            if (email.errMess !== err500) {
+                return (
+                    <ScrollView style={styles.errorContainer}>
+                        <View style={styles.mainErrorView}>
+                            <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                            <View style={styles.errorView}>
+                                <TouchableOpacity onPress={resetError}>
+                                    <Text>Go Back</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </ScrollView>
+                );
+            }
+        }
+    }
+
+    if (rewards.errMess || newuser.errMess) {
+        return (
+            <ScrollView style={styles.errorContainer}>
+                <View style={styles.mainErrorView}>
+                    <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                    <View style={styles.errorView}>
+                        <TouchableOpacity onPress={() => navigate('Home')}>
+                            <Text>Go Back</Text>
+                        </TouchableOpacity>
                     </View>
-                    <RenderText
-                        newuser={this.props.newuser.newuser}
-                        rewards={this.props.rewards.rewards}
-                        email={this.props.email.email}
-                    />
-                    <View style={styles.icon}>
-                        {reward}
-                    </View>
-                    <RenderButton
-                        newuser={this.props.newuser.newuser}
-                        rewards={this.props.rewards.rewards}
-                        email={this.props.email.email}
-                        navigate={this.props.navigation.navigate}
-                    />
                 </View>
             </ScrollView>
         );
-    };
-};
+    }
 
+    return (
+        <ScrollView style={styles.container}>
+            <View style={styles.mainView}>
+                <View style={styles.imageView}>
+                    <Image
+                        source={require('./images/logo.png')}
+                        resizeMode='contain'
+                        accessibilityLabel='Massage Knox Logo'
+                        style={styles.image}
+                    />
+                </View>
+                <RenderText
+                    newuser={props.newuser.newuser}
+                    rewards={props.rewards.rewards}
+                    email={props.email.email}
+                />
+                <View style={styles.icon}>
+                    {reward}
+                </View>
+                <RenderButton
+                    newuser={props.newuser.newuser}
+                    rewards={props.rewards.rewards}
+                    email={props.email.email}
+                    navigate={props.navigation.navigate}
+                />
+            </View>
+        </ScrollView>
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -350,4 +334,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default withNavigationFocus(connect(mapStateToProps, mapDispatchToProps)(Rewards));
+export default connect(mapStateToProps, mapDispatchToProps)(Rewards);

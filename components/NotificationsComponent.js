@@ -34,19 +34,18 @@ class Notifications extends Component {
 
 // Maps over items in notification array in state and displays the Body and Date of each notification
 
-        const notif = this.state.notifications.map((notif, i) => {
-            return(
-                <View style={styles.notificationsContainer}>
-                <Text 
-                style={styles.notificationsText}
-                key={i}>
-                    {notif.date = new Date().toLocaleDateString('en-US')}
-                    {" "}
-                    {notif.body}
-                </Text>
-                </View>
-            )
-        })
+const notif = this.state.notifications.map((notif, i) => {
+    return (
+        <View key={i} style={styles.notificationsContainer}>
+            <Text style={styles.notificationsText}>
+                {new Date(notif.date).toLocaleDateString('en-US')}
+                {" "}
+                {notif.body}
+            </Text>
+        </View>
+    )
+})
+
 // Checks if there are any notifications in the notifications array in state. If none are found, displays no new notifications
         if(notif.length === 0){
             return (
