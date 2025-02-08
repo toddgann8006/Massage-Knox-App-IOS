@@ -48,7 +48,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
   [application registerForRemoteNotifications];
 
-  RCTAppSetupPrepareApp(application);
+  RCTAppSetupPrepareApp(application, true);
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
 
