@@ -3,8 +3,9 @@
     "name": "Massage Knox",
     "slug": "massage-knox",
     "version": "1.0.0",
+    "jsEngine": "hermes",
     "orientation": "portrait",
-    "icon": "./assets/1024.png",
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./components/images/logo.png",
       "resizeMode": "contain",

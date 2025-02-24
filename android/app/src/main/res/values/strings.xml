@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resources>
   <string name="app_name">Massage Knox</string>
   <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
   <string name="fcm_message">FCM Message</string>
   <string name="msg_subscribed">Subscribed to all topic</string>
   <string name="msg_subscribe_failed">Failed to subscribe to all topic</string>
+  <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
+  <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
 </resources>
