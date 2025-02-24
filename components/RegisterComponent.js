@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, View, Image, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { ScrollView, View, Image, StyleSheet, TouchableOpacity, TextInput, Alert, KeyboardAvoidingView } from 'react-native';
 import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
 import Loading from "./LoadingComponent";
@@ -87,10 +87,10 @@ class Register extends Component {
 
         if (modal === true) {
             registerScreen =
-                <View style={styles.welcome}>
+                <View style={styles.mainView}>
                     <View style={styles.imageView}>
                         <Image
-                            source={require('./images/logo.png')}
+                            source={require('./images/new-logo.png')}
                             resizeMode='contain'
                             style={styles.image}
                             accessibilityLabel='Massage Knox Logo'
@@ -149,10 +149,10 @@ class Register extends Component {
                 </View>
         } else {
             registerScreen =
-                <View style={styles.welcome}>
+                <View style={styles.mainView}>
                     <View style={styles.imageView}>
                         <Image
-                            source={require('./images/logo.png')}
+                            source={require('./images/new-logo.png')}
                             resizeMode='contain'
                             style={styles.image}
                             accessibilityLabel='Massage Knox Logo'
@@ -164,27 +164,22 @@ class Register extends Component {
                         </Text>
                         <Text style={styles.welcomeTextHome}>{email.email}</Text>
                     </View>
-                    <View style={styles.registerView}>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => this.resetNewuser()}
-                        >
-                            <Text style={styles.buttonText}
-                                adjustsFontSizeToFit
-                            >
-                                Reset Email
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
         };
 
         return (
-            <ScrollView style={styles.container}
-                keyboardShouldPersistTaps='handled'
-            >
-                {registerScreen}
-            </ScrollView >
+            <KeyboardAvoidingView 
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.container}
+            keyboardVerticalOffset={100}
+        >
+        <ScrollView 
+               style={styles.container}
+               keyboardShouldPersistTaps='handled'
+        >
+            {registerScreen}
+        </ScrollView>
+    </KeyboardAvoidingView>
         )
     };
 };
@@ -193,40 +188,47 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 0,
-        backgroundColor: 'rgb(38,32,0)'
+        backgroundColor: '#2ea3f2'
     },
     image: {
-        width: '80%',
+        width: '100%',
         height: undefined,
-        aspectRatio: 1
+        aspectRatio: 1.43, // Adjust this number based on your image dimensions
+        resizeMode: 'contain'
     },
     imageView: {
-        borderColor: 'yellow',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'black',
-        paddingHorizontal: '20%',
+        backgroundColor: '#08678C',
+        paddingHorizontal: '0%', // Reduced padding to give image more room
         alignItems: 'center',
-        width: '90%'
+        width: '90%',
+        shadowColor: '#000',
+    shadowOffset: {
+        width: 0,
+        height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     },
     registerView: {
-        borderColor: 'yellow',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'black',
-        paddingHorizontal: '20%',
-        alignItems: 'center',
-        width: '90%'
-    },
-    button: {
-        backgroundColor: 'yellow',
-        width: '70%',
-        height: 40,
-        marginTop: '5%',
+        width: '50%',
+        backgroundColor: '#F2B705',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 30,
-        marginBottom: '5%'
+        marginBottom: '5%',
+        paddingVertical: '3%',
+        borderRadius: 10,
+        alignSelf: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84
+    },
+    button: {
+       fontSize: 18,
+            color: 'black'
     },
     buttonText: {
         fontSize: 18,
@@ -241,10 +243,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingBottom: '3%'
     },
-    welcome: {
+    mainView: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
+        backgroundColor: '#2ea3f2',
         paddingTop: '5%'
     },
     modalTextinput: {
@@ -258,16 +261,19 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     inputView: {
-        alignItems: "center",
-        borderColor: 'black',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'yellow',
-        paddingHorizontal: '3%',
-        marginVertical: '4%',
-        paddingTop: '3%',
-        marginHorizontal: '5%',
-        width: '90%'
+        backgroundColor: '#F2B705',
+        marginVertical: '5%',
+        paddingVertical: '3%',
+        paddingHorizontal: '5%',
+        alignItems: 'center',
+        width: '90%',
+        shadowColor: '#000',
+    shadowOffset: {
+        width: 0,
+        height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     },
     emailError: {
         color: "red",

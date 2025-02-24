@@ -104,7 +104,7 @@ class Home extends Component {
                 <View style={styles.mainView}>
                     <View style={styles.imageView}>
                         <Image
-                            source={require('./images/logo.png')}
+                            source={require('./images/new-logo.png')}
                             resizeMode='contain'
                             style={styles.image}
                             accessibilityLabel='Massage Knox Logo'
@@ -112,10 +112,7 @@ class Home extends Component {
                     </View>
                     <View style={styles.textView}>
                         <Text style={styles.text}>
-                            With the Massage Knox By Shannon Cox Rewards App, you will be able to track your sessions with Shannon Cox, Licensed Massage Therapist on a digital stamp card simply by scanning a QR Code during your visit.
-                            After accruing a few stamps, you'll receive a discount on the next service. Plus you get a coupon to redeem right away!
-                            In addition, you will be able to book appointments and purchase gift cards for your loved ones right from your mobile device!
-                            And you'll get up to date information about last minute openings, sales, and specials!
+                        With the Massage Knox By Shannon Cox Rewards App, you will be able to track your full priced sessions with Shannon Cox, Licensed Massage Therapist, on a digital stamp card simply by scanning a QR code during your visit. After accruing a few stamps, you’ll receive a discount on the next service. In addition, you will be able to book appointments and purchase gift cards for your loved ones right from your mobile device! And you’ll get up to date information about last minute openings, sales, and specials if you enable notifications!
                         </Text>
                     </View>
                 </View>
@@ -128,28 +125,33 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 0,
-        backgroundColor: 'rgb(38,32,0)'
+        backgroundColor: '#2ea3f2'
     },
     mainView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
+        backgroundColor: '#2ea3f2',
         paddingTop: '5%'
     },
     image: {
-        width: '80%',
+        width: '100%',
         height: undefined,
-        aspectRatio: 1
+        aspectRatio: 1.43, // Adjust this number based on your image dimensions
+        resizeMode: 'contain'
     },
     imageView: {
-        borderColor: 'yellow',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'black',
-        paddingHorizontal: '20%',
+        backgroundColor: '#08678C',
+        paddingHorizontal: '0%', // Reduced padding to give image more room
         alignItems: 'center',
-        width: '90%'
+        width: '90%',
+        shadowColor: '#000',
+    shadowOffset: {
+        width: 0,
+        height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     },
     text: {
         color: 'black',
@@ -157,29 +159,33 @@ const styles = StyleSheet.create({
         paddingBottom: '2%'
     },
     textView: {
-        borderColor: 'black',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'yellow',
+        backgroundColor: '#F2B705',
         marginVertical: '5%',
         paddingVertical: '3%',
         paddingHorizontal: '5%',
         alignItems: 'center',
-        width: '90%'
+        width: '90%',
+        shadowColor: '#000',
+    shadowOffset: {
+        width: 0,
+        height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     },
     errorText: {
-        color: 'yellow',
+        color: '#F2B705',
         fontSize: 16,
         alignItems: 'center',
         paddingLeft: '2%'
     },
     errorContainer: {
         flex: 1,
-        marginTop: 0,
-        backgroundColor: 'rgb(38,32,0)'
+    marginTop: 0,
+    backgroundColor: '#2ea3f2' 
     },
     errorButton: {
-        backgroundColor: 'yellow',
+        backgroundColor: '#F2B705',
         width: '70%',
         height: 40,
         marginVertical: '5%',
@@ -191,20 +197,25 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
-        paddingTop: '10%'
+        backgroundColor: '#2ea3f2',  
+        paddingTop: '10%',
+        width: '90%'
     },
     errorView: {
-        width: '70%',
-        height: 40,
-        backgroundColor: 'yellow',
+        width: '90%',  
+        backgroundColor: '#F2B705',  
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: '5%',
-        color: 'black',
+        marginVertical: '5%',
+        paddingVertical: '3%',
         borderRadius: 10,
-        fontWeight: 'bold',
-        marginTop: '5%'
+        shadowColor: '#000',  
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
     },
 })
 

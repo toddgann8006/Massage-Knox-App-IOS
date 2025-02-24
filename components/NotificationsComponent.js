@@ -50,11 +50,6 @@ const notif = this.state.notifications.map((notif, i) => {
         if(notif.length === 0){
             return (
                 <ScrollView style={styles.container}>
-                    <View style={styles.headerContainer}>
-                    <Text style={styles.header}>
-                        Notifications
-                    </Text>
-                    </View>
                 <View style={styles.notificationsContainer}>
                     <Text style={styles.notificationsText}
                     adjustsFontSizeToFit
@@ -66,11 +61,6 @@ const notif = this.state.notifications.map((notif, i) => {
 // Displays all notifications in the notifications array in state and adds a button to remove them if the user wants
         return (
             <ScrollView style={styles.container}>
-                <View style={styles.headerContainer}>
-                    <Text style={styles.header}>
-                        Notifications
-                    </Text>
-                </View>
                     {notif}
                     <View style={styles.registerView}>
                         <TouchableOpacity
@@ -107,54 +97,52 @@ const notif = this.state.notifications.map((notif, i) => {
 
 const styles = StyleSheet.create({
         container: {
-            flex: 1,
-            marginTop: 0,
-            backgroundColor: 'rgb(38,32,0)'
-        },
-        header: {
-            fontSize: 40,
-            color: 'yellow',
-            marginTop: '5%'
-        },
-        headerContainer: {
-            backgroundColor: 'black',
-            alignItems: 'center',
-            marginBottom: '4%'
-        },
+        flex: 1,
+        marginTop: 0,
+        backgroundColor: '#2ea3f2'
+    },
         notificationsText: {
             fontSize: 20,
-            color: 'yellow'
+            color: 'black'
         },
         notificationsContainer: {
-            backgroundColor: 'black',
-            borderStyle: 'solid',
-            paddingVertical: '5%',
-            borderStyle: 'solid',
-            borderColor: 'yellow',
-            borderWidth: 2,
-            marginBottom: '3%',
-            marginHorizontal: '2%',
-            paddingHorizontal: '2%'
-        },
-        registerView: {
-            borderColor: 'yellow',
-            borderStyle: 'solid',
-            borderWidth: 2,
-            backgroundColor: 'black',
-            paddingHorizontal: '20%',
-            alignItems: 'center',
-            marginHorizontal: '2%',
-            marginTop: '25%'
-        },
-        button: {
-            backgroundColor: 'yellow',
-            width: '80%',
-            height: 40,
-            marginTop: '5%',
+            backgroundColor: '#F2B705',
+            marginVertical: '5%',
+            paddingVertical: '3%',
+            paddingHorizontal: '5%',
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius: 30,
-            marginBottom: '5%'
+            width: '90%',
+            alignSelf: 'center',
+            shadowColor: '#000',
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84
+        },
+        registerView: {
+            width: '50%',
+            backgroundColor: '#F2B705',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: '5%',
+            paddingVertical: '3%',
+            borderRadius: 10,
+            alignSelf: 'center',
+            shadowColor: '#000',
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84
+        },
+        button: {
+            backgroundColor: '#F2B705',
+            color: 'black',
+            fontSize: 18,
         },
         buttonText: {
             fontSize: 18,

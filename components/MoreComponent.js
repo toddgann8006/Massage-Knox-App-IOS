@@ -7,34 +7,24 @@ class More extends Component {
         const { navigate } = this.props.navigation;
         return (
             <ScrollView style={styles.container}>
-                <View style={styles.registerView}>
-                    <TouchableOpacity
-                        onPress={() => navigate('Register')}
-                        style={styles.button}
-                    >
-                        <Text style={styles.buttonText}
-                            adjustsFontSizeToFit
-                        >
-                            Register
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.registerView}>
-                    <TouchableOpacity
-                        onPress={() => navigate('Appointments')}
-                        style={styles.button}
-                    >
-                        <Text style={styles.buttonText}
-                            adjustsFontSizeToFit
-                        >
+                <TouchableOpacity 
+                style={styles.registerView}
+                onPress={() => navigate('Register')}>
+                    <Text style={styles.buttonText} adjustsFontSizeToFit>
+                        Register
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                style={styles.registerView}
+                onPress={() => navigate('Appointments')}>
+                    <Text style={styles.buttonText}
+                            adjustsFontSizeToFit >
                             Appointments
                         </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.registerView}>
+                </TouchableOpacity>
                     <TouchableOpacity
+                    style={styles.registerView}
                         onPress={() => navigate('Contact')}
-                        style={styles.button}
                     >
                         <Text style={styles.buttonText}
                             adjustsFontSizeToFit
@@ -42,8 +32,6 @@ class More extends Component {
                             Contact
                         </Text>
                     </TouchableOpacity>
-                </View>
-                <View style={styles.registerView}>
                     <TouchableOpacity
                         onPress={() => Linking.canOpenURL("fb://page/1515073285379894").then(supported => {
                             if (supported) {
@@ -52,7 +40,7 @@ class More extends Component {
                                 return Linking.openURL("https://www.facebook.com/massageknox");
                             }
                         })}
-                        style={styles.button}
+                        style={styles.registerView}
                     >
                         <Text style={styles.buttonText}
                             adjustsFontSizeToFit
@@ -60,23 +48,9 @@ class More extends Component {
                             Facebook
                         </Text>
                     </TouchableOpacity>
-                </View>
-                <View style={styles.registerView}>
-                    <TouchableOpacity
-                        onPress={() => navigate('Services')}
-                        style={styles.button}
-                    >
-                        <Text style={styles.buttonText}
-                            adjustsFontSizeToFit
-                        >
-                            Services
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.registerView}>
                     <TouchableOpacity
                         onPress={() => navigate('Giftcards')}
-                        style={styles.button}
+                        style={styles.registerView}
                     >
                         <Text style={styles.buttonText}
                             adjustsFontSizeToFit
@@ -84,7 +58,6 @@ class More extends Component {
                             Gift Cards
                         </Text>
                     </TouchableOpacity>
-                </View>
             </ScrollView>
         );
     };
@@ -93,38 +66,48 @@ class More extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgb(38,32,0)',
-        marginTop: 0
+        marginTop: 0,
+        backgroundColor: '#2ea3f2',
+        paddingTop: 20
     },
     linkContainer: {
-        backgroundColor: 'black',
+        backgroundColor: '#08678C',
         borderStyle: 'solid',
         paddingVertical: '5%',
         borderStyle: 'solid',
-        borderColor: 'yellow',
+        borderColor: '#F2B705',
         borderWidth: 2,
         marginBottom: '2%',
         marginVertical: '2%',
         paddingHorizontal: '1%'
     },
     button: {
-        color: 'yellow',
+        color: '#F2B705',
         height: 40,
         marginVertical: '2%'
     },
     buttonText: {
-        fontSize: 30,
-        color: 'yellow'
+        fontSize: 25,
+        color: 'black'
     },
     registerView: {
-        borderColor: 'yellow',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'black',
-        paddingHorizontal: '5%',
-        marginHorizontal: '2%',
-        marginTop: '5%'
-    }
+        backgroundColor: '#F2B705',
+            marginVertical: '3%',
+            marginHorizontal: '5%',
+            paddingVertical: '2%',
+            paddingHorizontal: '5%',
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+            width: '70%',
+            alignSelf: 'flex-start',
+            shadowColor: '#000',
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84
+        },
 })
 
 export default More;

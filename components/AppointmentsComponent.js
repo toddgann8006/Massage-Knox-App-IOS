@@ -6,48 +6,30 @@ class Appointments extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <View style={styles.headerContainer}>
-                    <Text style={styles.header}>
-                        Appointments
-                    </Text>
-                </View>
                 <View style={styles.view}>
                     <View style={styles.textContainer}>
                         <Text style={styles.body}>
-                            If this is your first visit in over a year, you will need to fill out a new massage customization form so plan to arrive a few minutes early. If the client is under 18, a parent/guardian will need to be present to sign the consent at the bottom of the form. If the client is under 16, a parent/guardian will need to stay with  their child  during their appointment.
+                        We are open by appointment only. You can book online or by messaging Shannon. 
+If booking for a new client, they will need to fill out an intake form and minors will need a parent/guardian present.
                         </Text>
-                    </View>
-                    <View style={styles.textContainer}>
                         <Text style={styles.body}>
-                            ***Please be advised, I cannot accept Nourish Skin Studio's online gift cards, birthday or in-app rewards. If you have an e-gift card, reward or other discount, please confirm that it is from Massage Knox. And check the website and facebook for any current promotions.***
+                       Please note, we cannot accept Nourish Skin Studio’s gift cards, rewards, or discounts. If you have a gift card, reward, or discount, please confirm that it is from Massage Knox before booking.
                         </Text>
                     </View>
-                    <View style={styles.registerView}>
-                        <Text style={styles.centertext}>
-                            To schedule an  appointment,
-                        </Text>
-                        <Text style={styles.centertext}>
-                            click this button:
-                        </Text>
+                    <View style={styles.buttonView}>
                         <TouchableOpacity
                             onPress={() => Linking.openURL('https://www.vagaro.com/us04/massageknoxbyshannoncox')}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}>Book Now</Text>
+                            <Text style={styles.button}>Book Now</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.registerView}>
-                        <Text style={styles.centertext}>
-                            You can also email
-                        </Text>
-                        <Text style={styles.centertext}>
-                            me to schedule!
-                        </Text>
+                    <View style={styles.buttonView}>
                         <TouchableOpacity
                             onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}>Email</Text>
+                            <Text style={styles.button}>Message</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -59,42 +41,44 @@ class Appointments extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgb(38,32,0)',
-        marginTop: 0
+        marginTop: 0,
+        backgroundColor: '#2ea3f2'
     },
     view: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
+        backgroundColor: '#2ea3f2',
         marginTop: 0,
         marginBottom: 30
     },
     textContainer: {
-        alignItems: "center",
-        borderColor: 'yellow',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'black',
+        backgroundColor: '#F2B705',
+        marginVertical: '5%',
+        paddingVertical: '3%',
         paddingHorizontal: '5%',
-        marginVertical: '3%',
-        paddingVertical: '2%',
-        marginHorizontal: '5%'
+        alignItems: 'center',
+        width: '90%',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84
     },
     header: {
-        fontSize: 40,
-        color: 'yellow',
-        marginTop: 30
+        fontSize: 30,
+        color: 'black',
+        marginVertical: '5%',
+        justifyContent: 'center'
     },
     headerContainer: {
-        backgroundColor: 'black',
+        backgroundColor: '#F2B705',
         alignItems: 'center',
-        marginBottom: 20,
-        paddingBottom: 10
+        justifyContent: 'center',
+        marginBottom: '4%'
     },
     registerView: {
-        borderColor: 'yellow',
-        borderStyle: 'solid',
-        borderWidth: 2,
         backgroundColor: 'black',
         paddingHorizontal: '5%',
         alignItems: 'center',
@@ -102,7 +86,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     body: {
-        color: 'yellow',
+        color: 'black',
         marginTop: '3%',
         fontSize: 18,
         lineHeight: 30,
@@ -110,20 +94,22 @@ const styles = StyleSheet.create({
     centertext: {
         textAlign: 'center',
         fontSize: 18,
-        color: 'yellow'
+        color: 'black'
     },
-    button: {
-        backgroundColor: 'yellow',
-        color: 'black',
-        width: '70%',
+    buttonView: {
+        flex: 1,
+        width: '50%',
         height: 40,
-        marginTop: 25,
-        marginBottom: 10,
+        backgroundColor: '#F2B705',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 30
+        marginBottom: '5%',
+        color: '#08678C',
+        borderRadius: 10,
+        fontWeight: 'bold',
+        marginHorizontal: '10%'
     },
-    buttonText: {
+    button: {
         fontSize: 18,
         color: 'black'
     }

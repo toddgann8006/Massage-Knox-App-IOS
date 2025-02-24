@@ -6,41 +6,32 @@ class Contact extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <View style={styles.headerContainer}>
-                    <Text style={styles.header}>
-                        Contact
-                    </Text>
-                </View>
                 <View style={styles.view}>
                     <View style={styles.imageView}>
-                        <Image
-                            source={require('./images/headshot.jpg')}
-                            style={styles.image}
-                            accessibilityLabel='Shannon Cox LMT image'
-                        />
-                        <Text style={styles.text}>
+                                            <Image
+                                                source={require('./images/headshot.jpg')}
+                                                resizeMode='contain'
+                                                style={styles.image}
+                                                accessibilityLabel='Massage Knox Logo'
+                                            />
+                                        </View>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.body}>
                             Shannon Cox,
                         </Text>
-                        <Text style={styles.text2}>Licensed Massage Therapist</Text>
+                        <Text style={styles.body}>Licensed Massage Therapist</Text>
+                        </View>
+                    <View style={styles.buttonView}>
                         <TouchableOpacity
                             onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}
+                            <Text style={styles.button}
                                 adjustsFontSizeToFit
                             >Email</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.textView}>
-                        <Text style={styles.text3}>
-                            located inside Nourish Skin Studio
-                        </Text>
-                        <Text style={styles.text3}>
-                            110 Westfield Rd.
-                        </Text>
-                        <Text style={styles.text3}>
-                            Knoxville, TN 37919
-                        </Text>
+                    <View style={styles.buttonView}>
                         <TouchableOpacity
                             onPress={() => Linking.canOpenURL("fb://profile/1515073285379894").then(supported => {
                                 if (supported) {
@@ -51,7 +42,7 @@ class Contact extends Component {
                             })}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}
+                            <Text style={styles.button}
                                 adjustsFontSizeToFit
                             >Find Me On Facebook</Text>
                         </TouchableOpacity>
@@ -65,70 +56,55 @@ class Contact extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgb(38,32,0)',
-        marginTop: 0
-    },
-    imageView: {
-        borderColor: 'yellow',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'black',
-        paddingHorizontal: '5%',
-        alignItems: 'center',
-        marginTop: '3%',
-        paddingTop: '4%',
-        width: '100%',
-        marginBottom: '5%'
+        marginTop: 0,
+        backgroundColor: '#2ea3f2'
     },
     image: {
-        width: '70%',
+        width: '100%',
         height: undefined,
-        aspectRatio: 1
+        aspectRatio: 1.43, // Adjust this number based on your image dimensions
+        resizeMode: 'contain'
     },
-    header: {
-        fontSize: 40,
-        color: 'yellow',
-        marginTop: '2%'
-    },
-    headerContainer: {
-        backgroundColor: 'black',
+    imageView: {
+        backgroundColor: '#2ea3f2',
+        paddingHorizontal: '0%', 
         alignItems: 'center',
-        marginBottom: '3%',
-        paddingBottom: '2%'
+        width: '90%',
+        shadowColor: '#000',
+    shadowOffset: {
+        width: 0,
+        height: 2,
     },
-    text: {
-        color: 'yellow',
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    },
+
+    body: {
+        color: 'black',
         fontSize: 17,
         marginVertical: '2%'
     },
-    text2: {
-        color: 'yellow',
-        fontSize: 17,
-        marginBottom: '2%'
-    },
-    text3: {
-        color: 'yellow',
-        fontSize: 17,
-        marginBottom: '1%'
-    },
     button: {
-        backgroundColor: 'yellow',
-        width: '70%',
-        height: 40,
-        marginTop: '5%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 30,
-        marginBottom: '3%'
-    },
-    buttonText: {
         fontSize: 18,
         color: 'black'
+    },
+    buttonView: {
+        flex: 1,
+        width: '60%',
+        height: 40,
+        backgroundColor: '#F2B705',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: '5%',
+        color: '#08678C',
+        borderRadius: 10,
+        fontWeight: 'bold',
+        marginHorizontal: '10%'
     },
     view: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
+        backgroundColor: '#2ea3f2',
         marginTop: '1%',
         paddingHorizontal: '3%'
     },
@@ -142,6 +118,22 @@ const styles = StyleSheet.create({
         width: '100%',
         marginTop: '2%',
         marginBottom: '3%'
+    },
+    textContainer: {
+        backgroundColor: '#F2B705',
+        marginTop: "0%",
+        marginBottom: "5%",
+        paddingVertical: '3%',
+        paddingHorizontal: '5%',
+        alignItems: 'center',
+        width: '90%',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84
     }
 })
 

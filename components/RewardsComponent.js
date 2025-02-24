@@ -29,7 +29,7 @@ function RenderText(props) {
 
     if (email === "") {
         return (
-            <View style={styles.textContainer}>
+            <View style={styles.textView}>
                 <Text style={styles.text}>
                     Please register your email before receiving rewards.
                 </Text>
@@ -40,9 +40,9 @@ function RenderText(props) {
 
     } else if (newuser.length === 0 && rewards.length === 0) {
         return (
-            <View style={styles.textContainer}>
+            <View style={styles.textView}>
                 <Text style={styles.text}>
-                    Thanks for downloading the app. Enjoy 10% off of your visit today.
+                    Thanks for downloading the app. Enjoy $5 off of your visit today.
                 </Text>
             </View>
         );
@@ -51,9 +51,9 @@ function RenderText(props) {
 
     } else {
         return (
-            <View style={styles.textContainer}>
+            <View style={styles.textView}>
                 <Text style={styles.text}>
-                    Get 6 one hour or longer massages at regular price and receive 10% off the 7th. Not to be used in combination with a gift card or another discount.
+                Get 6 one hour or longer massages at regular price and receive 10% off the 7th. When checking out, show your massage therapist this page before completing payment to receive your stamp. (No stamp is given if paying with a gift card or another discount and rewards are not to be redeemed in combination with a gift card or another discount.)
                 </Text>
             </View>
         );
@@ -69,7 +69,7 @@ function RenderButton(props) {
 
     if (email === "") {
         return (
-            <View style={styles.bottomView}>
+            <View style={styles.buttonView}>
                 <TouchableOpacity
                     onPress={() => navigate('Register')}
                 >
@@ -86,7 +86,7 @@ function RenderButton(props) {
 
     } else if (newuser.length === 0 || rewards.length === 6) {
         return (
-            <View style={styles.bottomView}>
+            <View style={styles.buttonView}>
                 <TouchableOpacity
                     onPress={() => navigate('Scanner')}
                 >
@@ -101,7 +101,7 @@ function RenderButton(props) {
 
     } else {
         return (
-            <View style={styles.bottomView}>
+            <View style={styles.buttonView}>
                 <TouchableOpacity
                     onPress={() => navigate('Scanner')}
                 >
@@ -150,7 +150,7 @@ function Rewards(props) {
             <Icon
                 name={reward}
                 type='font-awesome'
-                color='#FFFF00'
+                color='#F2B705'
                 raised
                 reverse
                 key={i}
@@ -204,7 +204,7 @@ function Rewards(props) {
             <View style={styles.mainView}>
                 <View style={styles.imageView}>
                     <Image
-                        source={require('./images/logo.png')}
+                        source={require('./images/new-logo.png')}
                         resizeMode='contain'
                         accessibilityLabel='Massage Knox Logo'
                         style={styles.image}
@@ -233,105 +233,102 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 0,
-        paddingVertical: '5%',
-        backgroundColor: 'rgb(38,32,0)'
+        backgroundColor: '#2ea3f2'
     },
     mainView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
-        marginTop: 0
+        backgroundColor: '#2ea3f2',
+        paddingTop: '5%'
     },
     image: {
-        width: '80%',
+        width: '100%',
         height: undefined,
-        aspectRatio: 1
+        aspectRatio: 1.43, 
+        resizeMode: 'contain'
     },
     imageView: {
-        borderColor: 'yellow',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'black',
-        paddingHorizontal: '20%',
+        backgroundColor: '#08678C',
+        paddingHorizontal: '0%', 
         alignItems: 'center',
-        width: '90%'
+        width: '90%',
+        shadowColor: '#000',
+    shadowOffset: {
+        width: 0,
+        height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     },
     icon: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: '5%',
-        marginBottom: '5%'
+        marginVertical: '5%',
+        color: '#F2B705'
     },
     button: {
-        backgroundColor: 'yellow',
         color: 'black',
-        fontSize: 18
+        fontSize: 18,
+        textAlign: 'center'
     },
-    bottomView: {
-        flex: 1,
-        width: '80%',
-        height: 40,
-        backgroundColor: 'yellow',
+    buttonView: {
+        width: '60%',
+        backgroundColor: '#F2B705',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: '5%',
-        color: 'black',
-        borderRadius: 10,
-        fontWeight: 'bold',
-        marginHorizontal: '10%'
-    },
-    errorView: {
-        width: '70%',
-        height: 40,
-        backgroundColor: 'yellow',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: '5%',
-        color: 'black',
-        borderRadius: 10,
-        fontWeight: 'bold',
-        marginTop: '5%'
-    },
-    textContainer: {
-        borderColor: 'yellow',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        backgroundColor: 'black',
-        marginVertical: '4%',
         paddingVertical: '3%',
-        paddingHorizontal: '4%',
+        borderRadius: 10
+    },
+    textView: {
+        backgroundColor: '#F2B705',
+        marginVertical: '5%',
+        paddingVertical: '3%',
+        paddingHorizontal: '5%',
         alignItems: 'center',
-        width: '90%'
+        width: '90%',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84
     },
     text: {
-        color: 'yellow',
+        color: 'black',
         fontSize: 16,
+        paddingBottom: '2%'
+    },
+    errorView: {
+        width: '90%',
+        backgroundColor: '#F2B705',
+        justifyContent: 'center',
         alignItems: 'center',
-        paddingLeft: '2%'
+        marginVertical: '5%',
+        paddingVertical: '3%',
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84
     },
     errorContainer: {
         flex: 1,
-        marginTop: 0,
-        backgroundColor: 'rgb(38,32,0)'
+    marginTop: 0,
+    backgroundColor: '#2ea3f2'
     },
     mainErrorView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
-        paddingTop: '10%'
-    },
-    errorButton: {
-        backgroundColor: 'yellow',
-        width: '70%',
-        height: 40,
-        marginTop: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 30,
-        marginBottom: 20
-    },
-});
+        backgroundColor: '#2ea3f2',  
+        paddingTop: '10%',
+        width: '90%'   
+    }
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Rewards);

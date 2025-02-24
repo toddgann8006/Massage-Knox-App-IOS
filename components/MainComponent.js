@@ -9,7 +9,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from "./HomeComponent";
 import More from "./MoreComponent";
 import Contact from "./ContactComponent";
-import Services from "./ServicesComponent";
 import Appointments from "./AppointmentsComponent";
 import Giftcards from "./GiftcardsComponent";
 import Rewards from "./RewardsComponent";
@@ -46,7 +45,7 @@ const screenOptions = {
 function HomeStack() {
     return (
         <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen name="HomeScreen" component={Home} />
+            <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
     );
 }
@@ -54,8 +53,9 @@ function HomeStack() {
 function RewardsStack() {
     return (
         <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen name="RewardsScreen" component={Rewards} />
+            <Stack.Screen name="Rewards" component={Rewards} />
             <Stack.Screen name="Scanner" component={Scanner} />
+            <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>
     );
 }
@@ -63,7 +63,7 @@ function RewardsStack() {
 function NotificationsStack() {
     return (
         <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen name="NotificationsScreen" component={Notifications} />
+            <Stack.Screen name="Notifications" component={Notifications} />
         </Stack.Navigator>
     );
 }
@@ -71,12 +71,31 @@ function NotificationsStack() {
 function MoreStack() {
     return (
         <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen name="MoreScreen" component={More} />
-            <Stack.Screen name="Contact" component={Contact} />
-            <Stack.Screen name="Services" component={Services} />
-            <Stack.Screen name="Giftcards" component={Giftcards} />
-            <Stack.Screen name="Appointments" component={Appointments} />
-            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen 
+                name="More" component={More} 
+                options={{
+                    headerLeft: () => null
+                }}
+            />
+            <Stack.Screen name="Contact" component={Contact} 
+            options={{
+                headerLeft: () => null
+            }}
+            />
+            <Stack.Screen name="Giftcards" component={Giftcards} 
+            options={{
+                headerLeft: () => null
+            }}
+            />
+            <Stack.Screen name="Appointments" component={Appointments} 
+            options={{
+                headerLeft: () => null
+            }}
+            />
+            <Stack.Screen name="Register" component={Register} 
+            options={{
+                    headerLeft: () => null
+                }}/>
         </Stack.Navigator>
     );
 }
@@ -99,9 +118,9 @@ function TabNavigator() {
                 return <Ionicons name={iconName} size={25} color={color} />;
             },
             tabBarActiveTintColor: 'black',
-            tabBarInactiveTintColor: 'gray',
+            tabBarInactiveTintColor: '#414a4c',
             tabBarStyle: {
-                backgroundColor: 'yellow'
+                backgroundColor: '#F2B705'
             }
         })}
     >

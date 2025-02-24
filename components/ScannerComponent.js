@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Button, SafeAreaView, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import * as Permissions from 'expo-permissions';
+import { Camera } from 'expo-camera';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { QR_CODE } from '@env';
 import { postReward } from '../redux/ActionCreators';
@@ -36,7 +36,7 @@ class Scanner extends Component {
     // After receiving permission, this sets hasCameraPermission state granted.
 
     getPermissionsAsync = async () => {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        const { status } = await Camera.requestCameraPermissionsAsync();
         this.setState({ hasCameraPermission: status === 'granted' });
     };
 
@@ -173,7 +173,7 @@ class Scanner extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black'
+        backgroundColor: '#08678C'
     },
     mainView: {
         flex: 1,
@@ -181,8 +181,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     text: {
-        color: 'yellow',
-        backgroundColor: 'black',
+        color: '#F2B705',
+        backgroundColor: '#08678C',
         textAlign: 'center',
         fontSize: 50
     },
@@ -190,16 +190,16 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 0,
         paddingVertical: 30,
-        backgroundColor: 'rgb(38,32,0)'
+        backgroundColor: '#2ea3f2'
     },
     goBack: {
         width: '70%',
         height: 40,
-        backgroundColor: 'yellow',
+        backgroundColor: '#F2B705',
         justifyContent: 'flex-end',
         alignItems: 'center',
         marginBottom: 50,
-        color: 'black',
+        color: '#08678C',
         borderRadius: 10,
         paddingBottom: 10,
         fontWeight: 'bold',
@@ -209,11 +209,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
-        marginTop: 0
+        backgroundColor: '#2ea3f2',  
+        paddingTop: '10%',
+        width: '90%'  
     },
     errorText: {
-        color: 'yellow',
+        color: '#F2B705',
         fontSize: 16,
         alignItems: 'center',
         paddingLeft: 10
