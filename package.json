@@ -10,12 +10,8 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@expo/config-plugins": "^5.0.2",
     "@react-native-async-storage/async-storage": "^2.1.1",
-=======
-    "@expo/config-plugins": "6.0.0",
->>>>>>> 0a00bebbad0d8ae4adc83d396976f68abadb8b63
     "@react-native-community/masked-view": "0.1.11",
     "@react-native-community/push-notification-ios": "^1.10.1",
     "@react-native-firebase/app": "17.3.2",
@@ -23,7 +19,6 @@
     "@react-navigation/bottom-tabs": "6.5.7",
     "@react-navigation/native": "6.1.6",
     "@react-navigation/stack": "6.3.16",
-<<<<<<< HEAD
     "expo": "^47.0.13",
     "expo-barcode-scanner": "~12.1.0",
     "expo-camera": "~13.1.0",
@@ -33,13 +28,6 @@
     "expo-modules-core": "~1.0.4 || ~1.1.1",
     "expo-permissions": "~14.0.0",
     "expo-splash-screen": "~0.17.5",
-=======
-    "expo": "~48.0.21",
-    "expo-barcode-scanner": "~12.3.2",
-    "expo-constants": "~14.2.1",
-    "expo-permissions": "~14.1.1",
-    "expo-splash-screen": "~0.18.2",
->>>>>>> 0a00bebbad0d8ae4adc83d396976f68abadb8b63
     "expo-status-bar": "~1.4.2",
     "expo-updates": "~0.16.4",
     "font-awesome": "^4.7.0",
