@@ -13,7 +13,7 @@ target 'MassageKnox' do
 
   use_react_native!(
     :path => config[:reactNativePath],
-    :hermes_enabled => true,
+    :hermes_enabled => false,
     :fabric_enabled => false,
     :flipper_configuration => FlipperConfiguration.disabled,
     :app_path => "#{Pod::Config.instance.installation_root}/.."

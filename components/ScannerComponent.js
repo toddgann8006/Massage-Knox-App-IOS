@@ -46,7 +46,7 @@ class Scanner extends Component {
         this.props.postNewuser()
         Alert.alert(
             'Thanks for downloading the app!',
-            'Enjoy 20% off your first service!',
+            'Enjoy $5 off your service today!',
             [
                 {
                     text: 'OK',
@@ -181,8 +181,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     text: {
-        color: '#F2B705',
-        backgroundColor: '#08678C',
+        color: '#08678C',
+        backgroundColor: '#F2B705',
         textAlign: 'center',
         fontSize: 50
     },
